@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-600 ring-offset-2;
+  }
+
+  ::selection {
+    @apply bg-brand-100 text-brand-900;
+  }
+}
+
+@layer components {
+  /* Shared data table */
+  .ss-table {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .ss-table thead th {
+    @apply border-b border-slate-200 bg-slate-50 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500;
+  }
+  .ss-table tbody td {
+    @apply border-b border-slate-100 px-4 py-3 align-middle text-slate-700;
+  }
+  .ss-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+  .ss-table tbody tr:hover {
+    @apply bg-slate-50;
+  }
+
+  /* Similarity match highlighting (review workspace) */
+  .match-highlight {
+    @apply rounded-sm bg-yellow-200/70 px-0.5;
+  }
+  .match-selected {
+    @apply rounded-sm bg-amber-300 px-0.5 ring-2 ring-amber-500;
+  }
+}
