@@ -5,3 +5,8 @@ node_modules/
 *.log
 .DS_Store
 tsconfig.tsbuildinfo
+
+# Local preview tooling & screenshots (never commit)
+.browser/
+previews/
+lib/preview-stub.ts
