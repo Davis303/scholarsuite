@@ -11,6 +11,14 @@ import { Spinner } from "@/components/ui/Spinner";
 
 function friendlyError(message: string): string {
   const lower = message.toLowerCase();
+  if (
+    lower.includes("failed to fetch") ||
+    lower.includes("networkerror") ||
+    lower.includes("network request failed") ||
+    lower.includes("load failed")
+  ) {
+    return "We couldn't reach the server. The database may still be connecting — please try again in a little while.";
+  }
   if (lower.includes("invalid login credentials")) {
     return "The email or password you entered is incorrect. Please try again.";
   }

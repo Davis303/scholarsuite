@@ -11,6 +11,14 @@ const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
 
 function friendlyError(message: string): string {
   const lower = message.toLowerCase();
+  if (
+    lower.includes("failed to fetch") ||
+    lower.includes("networkerror") ||
+    lower.includes("network request failed") ||
+    lower.includes("load failed")
+  ) {
+    return "We couldn't reach the server. The database may still be connecting — please try again in a little while.";
+  }
   if (lower.includes("already registered") || lower.includes("already exists")) {
     return "An account with this email already exists. Try signing in instead.";
   }

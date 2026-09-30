@@ -16,7 +16,18 @@ function isProtected(pathname: string): boolean {
 }
 
 export async function middleware(request: NextRequest) {
-  const { response, user } = await updateSession(request);
+  // If the database isn't configured or reachable, treat every request as
+  // signed out instead of crashing: public pages still render, protected
+  // pages redirect to sign-in.
+  let response = NextResponse.next({ request });
+  let user = null;
+  try {
+    const result = await updateSession(request);
+    response = result.response;
+    user = result.user;
+  } catch {
+    // no-op: fall through as signed out
+  }
   const { pathname } = request.nextUrl;
 
   if (isProtected(pathname) && !user) {
