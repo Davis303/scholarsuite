@@ -5,7 +5,9 @@ import type {
   ReviewExportRow,
   ReviewRow,
 } from '@/lib/reviews/types';
-import { Button, Card, ToastProvider } from '@/components/reviews/ui';
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { ToastProvider } from "@/components/ui/Toast";
 import { ReviewsTable, type ReviewListItem } from '@/components/reviews/ReviewsTable';
 
 export const metadata = {

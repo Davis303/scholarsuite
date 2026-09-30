@@ -9,7 +9,11 @@ import {
 } from '@/lib/reviews/extract';
 import { mapPassagesToDocument } from '@/lib/reviews/match';
 import type { DocumentRow, MatchedPassageRow, ReviewRow } from '@/lib/reviews/types';
-import { Button, Card, EmptyState, Spinner, ToastProvider } from '@/components/reviews/ui';
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { Spinner } from "@/components/ui/Spinner";
+import { ToastProvider } from "@/components/ui/Toast";
 import {
   WorkspaceClient,
   type WorkspaceBlock,

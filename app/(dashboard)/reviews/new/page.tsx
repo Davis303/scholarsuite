@@ -1,4 +1,5 @@
-import { Card, ToastProvider } from '@/components/reviews/ui';
+import { Card } from "@/components/ui/Card";
+import { ToastProvider } from "@/components/ui/Toast";
 import { NewReviewWizard } from '@/components/reviews/NewReviewWizard';
 
 export const metadata = {
