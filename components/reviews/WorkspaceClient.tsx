@@ -9,15 +9,13 @@ import {
   type ReactNode,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Button,
-  Card,
-  EmptyState,
-  Input,
-  Select,
-  Textarea,
-  useToast,
-} from './ui';
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
+import { Textarea } from "@/components/ui/Textarea";
+import { useToast } from "@/components/ui/Toast";
 import {
   PASSAGE_STATUS_OPTIONS,
   PassageStatusBadge,

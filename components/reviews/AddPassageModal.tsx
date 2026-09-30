@@ -1,7 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Input, Modal, Textarea, useToast } from './ui';
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Modal } from "@/components/ui/Modal";
+import { Textarea } from "@/components/ui/Textarea";
+import { useToast } from "@/components/ui/Toast";
 
 export interface AddedPassage {
   id: string;

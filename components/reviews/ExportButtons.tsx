@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, useToast } from './ui';
+import { Button } from "@/components/ui/Button";
+import { useToast } from "@/components/ui/Toast";
 
 function triggerDownload(url: string) {
   const a = document.createElement('a');

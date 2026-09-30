@@ -1,6 +1,6 @@
 'use client';
 
-import { Badge } from './ui';
+import { Badge } from "@/components/ui/Badge";
 import type { PassageStatus } from '@/lib/reviews/types';
 
 type ReviewStatus = 'processing' | 'ready' | 'review_required' | 'completed' | 'failed';

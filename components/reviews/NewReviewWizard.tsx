@@ -3,7 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button, Card, EmptyState, FileUploader, Input, Spinner, useToast } from './ui';
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { FileUploader } from "@/components/ui/FileUploader";
+import { Input } from "@/components/ui/Input";
+import { Spinner } from "@/components/ui/Spinner";
+import { useToast } from "@/components/ui/Toast";
 import { ReviewStatusBadge } from './StatusBadge';
 import { getBrowserSupabase } from '@/lib/reviews/supabaseBrowser';
 

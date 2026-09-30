@@ -3,7 +3,12 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button, EmptyState, Input, Modal, Select, useToast } from './ui';
+import { Button } from "@/components/ui/Button";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { Input } from "@/components/ui/Input";
+import { Modal } from "@/components/ui/Modal";
+import { Select } from "@/components/ui/Select";
+import { useToast } from "@/components/ui/Toast";
 import { ReviewStatusBadge } from './StatusBadge';
 import { formatDate, formatRelativeTime } from '@/lib/reviews/format';
 
