@@ -1,0 +1,5 @@
+-- ScholarSuite seed data.
+--
+-- Intentionally empty: this project never ships demo or placeholder user
+-- content. All rows (profiles, documents, reviews, writing docs, settings)
+-- are created by real user activity through the application.
