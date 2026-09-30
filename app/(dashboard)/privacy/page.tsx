@@ -59,7 +59,7 @@ export default function PrivacyPage() {
           Manage retention and deletion anytime in{" "}
           <a
             href="/settings/privacy"
-            className="font-medium text-brand-700 underline hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="font-medium text-accent-700 underline hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
           >
             Settings → Privacy & data
           </a>

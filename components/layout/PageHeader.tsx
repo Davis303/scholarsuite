@@ -26,7 +26,7 @@ export function PageHeader({ title, description, breadcrumbs, actions }: PageHea
                   {crumb.href ? (
                     <Link
                       href={crumb.href}
-                      className="hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
+                      className="hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
                     >
                       {crumb.label}
                     </Link>

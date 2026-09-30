@@ -45,7 +45,7 @@ export default function ForgotPasswordPage() {
           <div className="mt-6 text-center">
             <Link
               href="/sign-in"
-              className="text-sm font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              className="text-sm font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
             >
               Back to sign in
             </Link>
@@ -77,7 +77,7 @@ export default function ForgotPasswordPage() {
           <p className="mt-6 text-center text-sm text-slate-600">
             <Link
               href="/sign-in"
-              className="font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              className="font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
             >
               Back to sign in
             </Link>

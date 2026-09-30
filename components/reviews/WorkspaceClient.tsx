@@ -422,7 +422,7 @@ export function WorkspaceClient({
               <button
                 type="button"
                 onClick={() => scrollToPage(page.pageNumber)}
-                className="flex w-full items-center justify-between rounded px-2 py-1.5 text-sm text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                className="flex w-full items-center justify-between rounded px-2 py-1.5 text-sm text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
               >
                 <span>Page {page.pageNumber}</span>
                 <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
@@ -445,7 +445,7 @@ export function WorkspaceClient({
                   type="button"
                   onClick={() => selectMatch(i)}
                   aria-current={i === selectedIdx ? 'true' : undefined}
-                  className={`w-full rounded-lg border px-3 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
+                  className={`w-full rounded-lg border px-3 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 ${
                     i === selectedIdx
                       ? 'border-amber-400 bg-amber-50'
                       : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'

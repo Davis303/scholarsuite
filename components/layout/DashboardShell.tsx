@@ -5,6 +5,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Sidebar } from "./Sidebar";
 import { TopNav } from "./TopNav";
+import { UpgradeModal } from "./UpgradeModal";
 
 export interface DashboardShellProps {
   children: ReactNode;
@@ -14,6 +15,8 @@ export interface DashboardShellProps {
 
 export function DashboardShell({ children, userEmail, isGuest }: DashboardShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const openUpgrade = () => setUpgradeOpen(true);
 
   // Honor "Keep me signed in" being unchecked: such sessions are ephemeral and
   // must not survive a new tab or a browser restart. The sign-in page stores
@@ -33,12 +36,13 @@ export function DashboardShell({ children, userEmail, isGuest }: DashboardShellP
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#fafafa]">
       <Sidebar
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         userEmail={userEmail}
         isGuest={isGuest}
+        onUpgrade={openUpgrade}
       />
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="lg:hidden">
@@ -46,14 +50,15 @@ export function DashboardShell({ children, userEmail, isGuest }: DashboardShellP
             type="button"
             onClick={() => setSidebarOpen(true)}
             aria-label="Open navigation menu"
-            className="fixed bottom-4 left-4 z-40 rounded-full bg-brand-600 p-3 text-white shadow-lg hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+            className="fixed bottom-4 left-4 z-40 rounded-full bg-accent-600 p-3 text-white shadow-lg hover:bg-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
           >
             <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
         </div>
-        <TopNav userEmail={userEmail} isGuest={isGuest} />
+        <TopNav userEmail={userEmail} isGuest={isGuest} onUpgrade={openUpgrade} />
+        <UpgradeModal open={upgradeOpen} onClose={() => setUpgradeOpen(false)} />
         {isGuest ? (
           <div className="border-b border-amber-200 bg-amber-50 px-4 py-2.5 sm:px-6">
             <p className="text-sm text-amber-900">
@@ -61,7 +66,7 @@ export function DashboardShell({ children, userEmail, isGuest }: DashboardShellP
               and may be removed automatically.{" "}
               <Link
                 href="/settings"
-                className="font-medium text-brand-700 underline hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                className="font-medium text-accent-700 underline hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
               >
                 Create a free account to keep your work
               </Link>

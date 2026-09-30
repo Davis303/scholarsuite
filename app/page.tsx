@@ -16,7 +16,7 @@ function SectionHeading({
 }) {
   return (
     <div className="mx-auto mb-12 max-w-2xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-widest text-brand-600">{eyebrow}</p>
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent-600">{eyebrow}</p>
       <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
         {title}
       </h2>
@@ -36,7 +36,7 @@ function FeatureCard({
 }) {
   return (
     <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-card">
-      <div className="mb-4 inline-flex rounded-lg bg-brand-50 p-2.5 text-brand-600">{icon}</div>
+      <div className="mb-4 inline-flex rounded-lg bg-accent-50 p-2.5 text-accent-600">{icon}</div>
       <h3 className="text-base font-semibold text-slate-900">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-slate-600">{description}</p>
     </div>
@@ -46,7 +46,7 @@ function FeatureCard({
 function StepCard({ step, title, description }: { step: string; title: string; description: string }) {
   return (
     <div className="relative rounded-lg border border-slate-200 bg-white p-6 shadow-card">
-      <span className="text-xs font-bold uppercase tracking-widest text-brand-600">{step}</span>
+      <span className="text-xs font-bold uppercase tracking-widest text-accent-600">{step}</span>
       <h3 className="mt-2 text-base font-semibold text-slate-900">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-slate-600">{description}</p>
     </div>
@@ -70,7 +70,7 @@ function BulletList({ items }: { items: string[] }) {
     <ul className="mt-4 space-y-3 text-sm text-slate-600">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2">
-          <span className="mt-0.5 text-brand-600">
+          <span className="mt-0.5 text-accent-600">
             <CheckIcon />
           </span>
           <span>{item}</span>
@@ -94,13 +94,13 @@ export default function LandingPage() {
           <nav aria-label="Site" className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/sign-in"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
             >
               {c.header.signIn}
             </Link>
             <Link
               href="/sign-up"
-              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+              className="rounded-lg bg-accent-600 px-4 py-2 text-sm font-medium text-white hover:bg-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
             >
               {c.header.getStarted}
             </Link>
@@ -112,7 +112,7 @@ export default function LandingPage() {
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-brand-600">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent-600">
               {c.hero.eyebrow}
             </p>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
@@ -122,13 +122,13 @@ export default function LandingPage() {
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href="/sign-up"
-                className="w-full rounded-lg bg-brand-600 px-6 py-3 text-base font-medium text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 sm:w-auto"
+                className="w-full rounded-lg bg-gradient-to-r from-accent-500 to-brand-600 px-6 py-3 text-base font-medium text-white shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 sm:w-auto"
               >
                 {c.hero.primaryCta}
               </Link>
               <a
                 href="#preview"
-                className="w-full rounded-lg border border-slate-300 bg-white px-6 py-3 text-center text-base font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 sm:w-auto"
+                className="w-full rounded-lg border border-slate-300 bg-white px-6 py-3 text-center text-base font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 sm:w-auto"
               >
                 {c.hero.secondaryCta}
               </a>
@@ -182,8 +182,8 @@ export default function LandingPage() {
                       <div className="mt-2 h-1.5 rounded bg-slate-100" />
                       <div className="mt-1 h-1.5 w-3/4 rounded bg-slate-100" />
                     </div>
-                    <div className="rounded-lg border border-brand-200 bg-white p-3 ring-1 ring-brand-600">
-                      <div className="h-2 w-16 rounded bg-brand-100" />
+                    <div className="rounded-lg border border-accent-200 bg-white p-3 ring-1 ring-accent-600">
+                      <div className="h-2 w-16 rounded bg-accent-100" />
                       <div className="mt-2 h-1.5 rounded bg-slate-100" />
                       <div className="mt-1 h-1.5 w-2/3 rounded bg-slate-100" />
                     </div>
@@ -258,7 +258,7 @@ export default function LandingPage() {
           <p className="mt-8 text-center text-sm">
             <Link
               href="/privacy"
-              className="font-medium text-brand-700 underline hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              className="font-medium text-accent-700 underline hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
             >
               {c.security.privacyLink}
             </Link>
@@ -272,7 +272,7 @@ export default function LandingPage() {
         <div className="mx-auto grid max-w-4xl gap-5 sm:grid-cols-3">
           {c.formats.items.map((item) => (
             <div key={item.badge} className="rounded-lg border border-slate-200 bg-white p-6 text-center shadow-card">
-              <span className="inline-block rounded-md bg-brand-50 px-3 py-1 text-sm font-bold text-brand-700">
+              <span className="inline-block rounded-md bg-accent-50 px-3 py-1 text-sm font-bold text-accent-700">
                 {item.badge}
               </span>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">{item.description}</p>
@@ -297,7 +297,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
+      <section id="faq" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20">
         <SectionHeading eyebrow={c.faq.eyebrow} title={c.faq.title} />
         <div className="space-y-3">
           {c.faq.items.map((item) => (
@@ -305,7 +305,7 @@ export default function LandingPage() {
               key={item.question}
               className="group rounded-lg border border-slate-200 bg-white px-5 py-4 shadow-card"
             >
-              <summary className="cursor-pointer list-none text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 [&::-webkit-details-marker]:hidden">
+              <summary className="cursor-pointer list-none text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 [&::-webkit-details-marker]:hidden">
                 <span className="flex items-center justify-between gap-4">
                   {item.question}
                   <span className="text-slate-400 group-open:rotate-180" aria-hidden="true">
@@ -329,13 +329,13 @@ export default function LandingPage() {
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/sign-up"
-              className="w-full rounded-lg bg-brand-600 px-6 py-3 text-base font-medium text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 sm:w-auto"
+              className="w-full rounded-lg bg-gradient-to-r from-accent-500 to-brand-600 px-6 py-3 text-base font-medium text-white shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 sm:w-auto"
             >
               {c.finalCta.primaryCta}
             </Link>
             <Link
               href="/sign-in"
-              className="w-full rounded-lg border border-slate-300 bg-white px-6 py-3 text-center text-base font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 sm:w-auto"
+              className="w-full rounded-lg border border-slate-300 bg-white px-6 py-3 text-center text-base font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 sm:w-auto"
             >
               {c.finalCta.secondaryCta}
             </Link>
@@ -355,7 +355,7 @@ export default function LandingPage() {
               <Link
                 key={link.key}
                 href={link.href}
-                className="hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                className="hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
               >
                 {link.label}
               </Link>

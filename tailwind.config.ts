@@ -20,6 +20,21 @@ module.exports = {
           800: "#1E3A8A",
           900: "#172E6E",
         },
+        // Amber accent scale for the ScholarSuite design language.
+        // Anchored at 500 = #f0a020; used for the logo mark, active
+        // states, icons, highlights, and the amber end of CTA gradients.
+        accent: {
+          50: "#FEF9EC",
+          100: "#FDF0D3",
+          200: "#FAE3A8",
+          300: "#F7CF6B",
+          400: "#F4B93E",
+          500: "#F0A020",
+          600: "#C98712",
+          700: "#A66D0E",
+          800: "#85570F",
+          900: "#6E4710",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],

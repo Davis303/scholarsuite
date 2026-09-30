@@ -301,8 +301,8 @@ export function ImprovePanel({
         </Card>
       )}
 
-      <Card className="p-5">
-        <h2 className="text-base font-semibold text-slate-900">
+      <section aria-label="Improvement controls">
+        <h2 className="text-sm font-semibold text-slate-900">
           What should I improve?
         </h2>
         <div
@@ -317,9 +317,9 @@ export function ImprovePanel({
               role="radio"
               aria-checked={scope === s}
               onClick={() => setScope(s)}
-              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
+              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 ${
                 scope === s
-                  ? "border-brand-600 bg-brand-50 text-brand-700"
+                  ? "border-accent-600 bg-accent-50 text-accent-700"
                   : "border-slate-300 bg-white text-slate-600 hover:border-slate-400"
               }`}
             >
@@ -405,10 +405,10 @@ export function ImprovePanel({
             </p>
           )}
         </div>
-      </Card>
+      </section>
 
       <div>
-        <h2 className="mb-3 text-base font-semibold text-slate-900">
+        <h2 className="mb-3 text-sm font-semibold text-slate-900">
           Suggestions{" "}
           <span className="font-normal text-slate-500">
             ({suggested.length} awaiting your decision)
@@ -423,13 +423,13 @@ export function ImprovePanel({
           <div className="space-y-4">
             {suggested.map((rev) => (
               <Card key={rev.id} className="overflow-hidden">
-                <div className="border-b border-slate-200 px-5 py-3">
+                <div className="border-b border-slate-200 px-4 py-2.5">
                   <Badge tone="brand">
                     {SCOPE_LABELS[rev.scope as Scope] ?? rev.scope}
                   </Badge>
                 </div>
-                <div className="grid gap-0 md:grid-cols-2">
-                  <div className="border-b border-slate-200 p-5 md:border-b-0 md:border-r">
+                <div className="grid gap-0">
+                  <div className="border-b border-slate-200 p-4">
                     <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Original
                     </p>
@@ -437,7 +437,7 @@ export function ImprovePanel({
                       {rev.original_text}
                     </p>
                   </div>
-                  <div className="bg-brand-50/40 p-5">
+                  <div className="bg-accent-50/40 p-4">
                     <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Improved version
                     </p>
@@ -455,7 +455,7 @@ export function ImprovePanel({
                     )}
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2 border-t border-slate-200 px-5 py-3">
+                <div className="flex flex-wrap gap-2 border-t border-slate-200 px-4 py-2.5">
                   {editingId === rev.id ? (
                     <>
                       <Button

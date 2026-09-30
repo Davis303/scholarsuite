@@ -26,7 +26,7 @@ export function ProgressSteps({
                 done
                   ? "bg-green-100 text-green-700"
                   : active
-                    ? "bg-brand-100 text-brand-700"
+                    ? "bg-accent-100 text-accent-700"
                     : "bg-slate-100 text-slate-400"
               }`}
               aria-hidden="true"

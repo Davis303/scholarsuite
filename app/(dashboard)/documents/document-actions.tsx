@@ -91,7 +91,7 @@ export function DocumentActions({ doc }: { doc: LibraryDocument }) {
         <>
           <Link
             href={`/reviews/new?documentId=${doc.id}`}
-            className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-accent-700 hover:bg-accent-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
           >
             Open review
           </Link>
@@ -104,7 +104,7 @@ export function DocumentActions({ doc }: { doc: LibraryDocument }) {
         doc.source === "writing_docs" ? (
           <Link
             href={`/writing/${doc.id}`}
-            className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-accent-700 hover:bg-accent-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
           >
             Open in Writing Assistant
           </Link>
@@ -117,7 +117,7 @@ export function DocumentActions({ doc }: { doc: LibraryDocument }) {
       {doc.kind === "similarity_report" ? (
         <Link
           href="/reviews"
-          className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+          className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-accent-700 hover:bg-accent-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
         >
           My Reviews
         </Link>

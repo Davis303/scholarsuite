@@ -38,7 +38,7 @@ export default async function SettingsPage() {
           </p>
           <Link
             href="/settings/sessions"
-            className="mt-3 inline-block text-sm font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="mt-3 inline-block text-sm font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
           >
             Manage active sessions →
           </Link>
@@ -51,7 +51,7 @@ export default async function SettingsPage() {
           </p>
           <Link
             href="/settings/privacy"
-            className="mt-3 inline-block text-sm font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="mt-3 inline-block text-sm font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
           >
             Open privacy settings →
           </Link>

@@ -78,7 +78,7 @@ export function RetentionForm({
             type="checkbox"
             checked={autoDelete}
             onChange={(event) => setAutoDelete(event.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="mt-0.5 h-4 w-4 rounded border-slate-300 text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
           />
           <span className="text-sm text-slate-700">
             <span className="font-medium text-slate-900">Automatically delete expired documents</span>

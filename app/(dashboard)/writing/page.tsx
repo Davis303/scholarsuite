@@ -186,7 +186,7 @@ function WritingHomeInner() {
       <Card className="mb-6 p-5">
         {uploading ? (
           <div className="flex items-center gap-3 text-sm text-slate-600">
-            <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
+            <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-accent-600 border-t-transparent" />
             Uploading your document…
           </div>
         ) : (
@@ -268,7 +268,7 @@ function WritingHomeInner() {
                 <td>
                   <Link
                     href={`/writing/${doc.id}`}
-                    className="font-medium text-brand-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
+                    className="font-medium text-accent-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
                   >
                     {doc.name}
                   </Link>

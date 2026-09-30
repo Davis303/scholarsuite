@@ -42,7 +42,7 @@ function StatCard({ label, value, href }: { label: string; value: number; href: 
   return (
     <Link
       href={href}
-      className="block rounded-lg border border-slate-200 bg-white p-5 shadow-card transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+      className="block rounded-lg border border-slate-200 bg-white p-5 shadow-card transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
     >
       <p className="text-sm font-medium text-slate-500">{label}</p>
       <p className="mt-1 text-3xl font-semibold tracking-tight text-slate-900">{value}</p>
@@ -89,13 +89,13 @@ export default async function DashboardHomePage() {
           <>
             <Link
               href="/writing/new"
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
             >
               New Writing Document
             </Link>
             <Link
               href="/reviews/new"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-600 px-4 py-2 text-sm font-medium text-white hover:bg-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
             >
               Start New Review
             </Link>
@@ -116,7 +116,7 @@ export default async function DashboardHomePage() {
             <h2 className="text-base font-semibold text-slate-900">Recent reviews</h2>
             <Link
               href="/reviews"
-              className="text-sm font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              className="text-sm font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
             >
               View all
             </Link>
@@ -129,7 +129,7 @@ export default async function DashboardHomePage() {
                 action={
                   <Link
                     href="/reviews/new"
-                    className="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                    className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
                   >
                     Start New Review
                   </Link>
@@ -153,7 +153,7 @@ export default async function DashboardHomePage() {
                       <td>
                         <Link
                           href={`/reviews/${review.id}`}
-                          className="font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                          className="font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                         >
                           {review.title || review.documents?.name || "Untitled review"}
                         </Link>
@@ -179,7 +179,7 @@ export default async function DashboardHomePage() {
             <h2 className="text-base font-semibold text-slate-900">Recent writing documents</h2>
             <Link
               href="/writing"
-              className="text-sm font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              className="text-sm font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
             >
               View all
             </Link>
@@ -192,7 +192,7 @@ export default async function DashboardHomePage() {
                 action={
                   <Link
                     href="/writing/new"
-                    className="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                    className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
                   >
                     New Writing Document
                   </Link>
@@ -214,7 +214,7 @@ export default async function DashboardHomePage() {
                       <td>
                         <Link
                           href={`/writing/${doc.id}`}
-                          className="font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                          className="font-medium text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                         >
                           {doc.name}
                         </Link>

@@ -159,7 +159,9 @@ export function ReviewsTable({ initialReviews }: { initialReviews: ReviewListIte
           action={
             reviews.length === 0 ? (
               <Link href="/reviews/new">
-                <Button variant="primary">Start new review</Button>
+                <Button variant="secondary" className="rounded-full">
+                  Start new review
+                </Button>
               </Link>
             ) : undefined
           }

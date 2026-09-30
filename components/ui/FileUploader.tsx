@@ -95,8 +95,8 @@ export function FileUploader({
           setDragging(false);
           handleChosen(event.dataTransfer.files);
         }}
-        className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-8 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
-          dragging ? "border-brand-600 bg-brand-50" : "border-slate-300 bg-slate-50 hover:border-slate-400"
+        className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-8 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 ${
+          dragging ? "border-accent-600 bg-accent-50" : "border-slate-300 bg-slate-50 hover:border-slate-400"
         }`}
       >
         <svg

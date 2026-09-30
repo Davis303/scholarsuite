@@ -312,8 +312,8 @@ export function ProofreadPanel({
         </Card>
       )}
 
-      <Card className="p-5">
-        <h2 className="text-base font-semibold text-slate-900">Deep Proofread</h2>
+      <section aria-label="Proofread controls">
+        <h2 className="text-sm font-semibold text-slate-900">Deep Proofread</h2>
         <p className="mt-1 text-sm text-slate-600">
           A final-quality review of your own text. Issues are listed for your
           decision · nothing is changed automatically.
@@ -330,9 +330,9 @@ export function ProofreadPanel({
               role="radio"
               aria-checked={scope === s}
               onClick={() => setScope(s)}
-              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
+              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 ${
                 scope === s
-                  ? "border-brand-600 bg-brand-50 text-brand-700"
+                  ? "border-accent-600 bg-accent-50 text-accent-700"
                   : "border-slate-300 bg-white text-slate-600 hover:border-slate-400"
               }`}
             >
@@ -398,7 +398,7 @@ export function ProofreadPanel({
             {scope === "document" ? "Proofread entire document" : "Run proofread"}
           </Button>
         </div>
-      </Card>
+      </section>
 
       {runs.length > 0 && (
         <div className="flex items-center gap-3">
@@ -424,11 +424,11 @@ export function ProofreadPanel({
       )}
 
       {selectedRun && summary && (
-        <Card className="p-5">
-          <h2 className="text-base font-semibold text-slate-900">
+        <Card className="p-4">
+          <h2 className="text-sm font-semibold text-slate-900">
             Proofread Complete
           </h2>
-          <dl className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <dl className="mt-4 grid grid-cols-2 gap-3">
             <div className="rounded-lg bg-slate-50 p-3">
               <dt className="text-xs font-medium text-slate-500">Issues Found</dt>
               <dd className="text-2xl font-bold text-slate-900">
@@ -450,8 +450,8 @@ export function ProofreadPanel({
       )}
 
       {decided && issues.length > 0 && (
-        <Card className="border-green-200 bg-green-50 p-5">
-          <h2 className="text-base font-semibold text-green-900">
+        <Card className="border-green-200 bg-green-50 p-4">
+          <h2 className="text-sm font-semibold text-green-900">
             Review summary
           </h2>
           <ul className="mt-2 space-y-1 text-sm text-green-900">
@@ -465,7 +465,7 @@ export function ProofreadPanel({
       )}
 
       <div>
-        <h2 className="mb-3 text-base font-semibold text-slate-900">
+        <h2 className="mb-3 text-sm font-semibold text-slate-900">
           Issues{" "}
           <span className="font-normal text-slate-500">
             ({issues.filter((i) => i.status === "open").length} open)
@@ -487,7 +487,7 @@ export function ProofreadPanel({
             {issues.map((issue) => {
               const sev = SEVERITY[issue.severity];
               return (
-                <Card key={issue.id} className="p-5">
+                <Card key={issue.id} className="p-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge tone="brand">
                       {CATEGORY_LABELS[issue.category] ?? issue.category}
@@ -514,7 +514,7 @@ export function ProofreadPanel({
                     </span>
                   </div>
 
-                  <div className="mt-3 grid gap-4 md:grid-cols-2">
+                  <div className="mt-3 grid gap-4">
                     <div>
                       <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
                         Original
@@ -535,7 +535,7 @@ export function ProofreadPanel({
                           aria-label="Edit the suggestion"
                         />
                       ) : (
-                        <p className="rounded-lg bg-brand-50 p-3 text-sm text-slate-900">
+                        <p className="rounded-lg bg-accent-50 p-3 text-sm text-slate-900">
                           {issue.suggestion}
                         </p>
                       )}

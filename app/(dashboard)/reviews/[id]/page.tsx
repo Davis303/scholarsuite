@@ -57,7 +57,7 @@ export default async function ReviewWorkspacePage({
   if (review.status === 'processing') {
     return (
       <Card className="p-8 text-center">
-        <div className="mx-auto mb-4 flex justify-center text-brand-600">
+        <div className="mx-auto mb-4 flex justify-center text-accent-600">
           <Spinner />
         </div>
         <h1 className="text-lg font-semibold text-slate-900">This review is still processing</h1>

@@ -199,9 +199,9 @@ export function NewReviewWizard({ initialDocumentId }: { initialDocumentId: stri
                 aria-current={active ? 'step' : undefined}
                 className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
                   done
-                    ? 'bg-brand-600 text-white'
+                    ? 'bg-accent-600 text-white'
                     : active
-                      ? 'bg-brand-600 text-white'
+                      ? 'bg-accent-600 text-white'
                       : 'bg-slate-200 text-slate-600'
                 }`}
               >
@@ -307,7 +307,7 @@ export function NewReviewWizard({ initialDocumentId }: { initialDocumentId: stri
                 title="Processing failed"
                 description={processError}
                 action={
-                  <Button variant="primary" onClick={retryProcessing}>
+                  <Button variant="secondary" className="rounded-full" onClick={retryProcessing}>
                     Try again
                   </Button>
                 }
@@ -327,7 +327,7 @@ export function NewReviewWizard({ initialDocumentId }: { initialDocumentId: stri
                         done
                           ? 'bg-green-100 text-green-700'
                           : current
-                            ? 'bg-brand-50 text-brand-700'
+                            ? 'bg-accent-50 text-accent-700'
                             : 'bg-slate-100 text-slate-400'
                       }`}
                       aria-hidden="true"
