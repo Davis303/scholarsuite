@@ -88,7 +88,7 @@ export default async function DashboardHomePage() {
         actions={
           <>
             <Link
-              href="/writing/new"
+              href="/writing"
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
             >
               New Writing Document
@@ -191,7 +191,7 @@ export default async function DashboardHomePage() {
                 description="Create a document to start refining your own draft."
                 action={
                   <Link
-                    href="/writing/new"
+                    href="/writing"
                     className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
                   >
                     New Writing Document
