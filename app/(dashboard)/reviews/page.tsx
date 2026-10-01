@@ -25,7 +25,7 @@ export default async function ReviewsPage() {
   if (!auth) {
     return (
       <Card className="p-8 text-center">
-        <p className="text-slate-600">Please sign in to view your reviews.</p>
+        <p className="text-slate-600">We couldn&apos;t start your free session. Please refresh the page.</p>
       </Card>
     );
   }

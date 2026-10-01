@@ -15,7 +15,7 @@ const TOC: TocItem[] = [
   { id: "writing-assistant", label: "Writing Assistant" },
   { id: "deep-proofread", label: "Deep Proofread" },
   { id: "similarity-review", label: "Similarity Review" },
-  { id: "accounts", label: "Accounts: sign up, sign in & guest mode" },
+  { id: "accounts", label: "Free access: no account needed" },
   { id: "privacy", label: "Privacy & your data" },
   { id: "faq", label: "Frequently asked questions" },
 ];
@@ -34,8 +34,8 @@ const FAQS: Array<[string, string]> = [
     `Yes, it's free, and there are no usage limits: no word caps, no locked features, no throttling. Everything in the app is fully usable.`,
   ],
   [
-    "Can I try it without creating an account?",
-    `Yes. Choose "Continue as guest" on the sign-in page. Guest work is temporary and may be removed automatically, so create a free account when you want to keep your documents permanently.`,
+    "Do I need to create an account?",
+    `No. ScholarSuite is completely free with no account needed. Just open the app and start working. Your workspace is ready immediately, and everything in the app is fully usable.`,
   ],
   [
     "What files can I upload?",
@@ -109,7 +109,7 @@ export default function ManualPage() {
     <div className="max-w-3xl">
       <PageHeader
         title="User Manual"
-        description={`How to use ${appName}: what each tool does, how the workflows run, and how your account and data work.`}
+        description={`How to use ${appName}: what each tool does, how the workflows run, and how your data works.`}
       />
 
       <Card className="mb-6 p-6">
@@ -138,7 +138,7 @@ export default function ManualPage() {
         <Section id="what-is" index={1} title={`What is ${appName}?`}>
           <p>
             {appName} is one product at one address, with <strong className="font-semibold text-slate-900">two tools</strong> that
-            share a single document library and a single account:
+            share a single document library:
           </p>
           <ul className="list-disc space-y-2 pl-5">
             <li>
@@ -156,7 +156,7 @@ export default function ManualPage() {
             <strong className="font-semibold text-slate-900">The bridge between them:</strong> every
             document you upload lives in one shared library, visible from both tools. From any
             writing draft you can choose <em>Send to similarity review</em> to carry the document
-            straight over. No re-uploading, no second login. Both tools are always one click away
+            straight over. No re-uploading, no extra steps. Both tools are always one click away
             in the left sidebar.
           </p>
         </Section>
@@ -298,30 +298,25 @@ export default function ManualPage() {
           </Note>
         </Section>
 
-        <Section id="accounts" index={5} title="Accounts: sign up, sign in & guest mode">
+        <Section id="accounts" index={5} title="Free access: no account needed">
           <ul className="list-disc space-y-2 pl-5">
             <li>
-              <strong className="font-semibold text-slate-900">Sign up</strong> with your email and
-              a password, then click the verification link we email you.
+              <strong className="font-semibold text-slate-900">No sign up, no sign in.</strong> Just
+              open the app and start working. Your free workspace is created automatically.
             </li>
             <li>
-              <strong className="font-semibold text-slate-900">Sign in</strong> with your email and
-              password. Tick <strong className="font-semibold text-slate-900">Keep me signed in</strong> to
-              stay logged in on that device; leave it unticked and you&apos;ll be signed out when
-              you close the browser.
+              <strong className="font-semibold text-slate-900">Everything is free.</strong> There
+              are no usage limits, no locked features, and no credit card is ever asked for.
             </li>
             <li>
-              <strong className="font-semibold text-slate-900">Forgot your password?</strong> Use
-              the reset link on the sign-in page to set a new one.
+              <strong className="font-semibold text-slate-900">Your workspace stays on your device.</strong>{" "}
+              Your documents are tied to this browser. If you clear your browser&apos;s site data,
+              your workspace starts fresh, so keep copies of important exports.
             </li>
             <li>
-              <strong className="font-semibold text-slate-900">Continue as guest</strong> to try the
-              tools without an account. Guest work is temporary and may be removed automatically. Create a free account at any time to keep it, and your current work carries over.
-            </li>
-            <li>
-              <strong className="font-semibold text-slate-900">One account, both tools.</strong> The
-              same sign-in unlocks the Writing Assistant and Similarity Review, and in Settings →
-              Active sessions you can see your signed-in devices and sign out everywhere at once.
+              <strong className="font-semibold text-slate-900">One workspace, both tools.</strong>{" "}
+              The Writing Assistant and Similarity Review share your document library, and you can
+              move between them freely from the left sidebar.
             </li>
           </ul>
         </Section>
@@ -334,7 +329,7 @@ export default function ManualPage() {
             </li>
             <li>
               <strong className="font-semibold text-slate-900">Delete anytime.</strong> Remove any
-              document from your library whenever you like, or delete your whole account and
+              document from your library whenever you like, or delete all your workspace data and
               everything goes with it.
             </li>
             <li>

@@ -1,7 +1,7 @@
 /**
  * Central site content: brand name, navigation, and footer links.
  *
- * Edit copy here — no component or logic changes needed.
+ * Edit copy here (no component or logic changes needed).
  * (Kept separate so marketing copy can be managed or migrated independently,
  * e.g. into a CMS such as WordPress later.)
  */

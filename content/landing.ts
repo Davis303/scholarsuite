@@ -13,12 +13,12 @@ export const landing = {
     eyebrow: "Academic integrity workspace",
     title: "Review Academic Similarity Reports With Precision",
     subtitle:
-      "Upload your manuscript and its similarity report, identify every matched passage against its source, and produce a highlighted review copy — without ever altering your original document.",
+      "Upload your manuscript and its similarity report, identify every matched passage against its source, and produce a highlighted review copy, without ever altering your original document.",
     primaryCta: "Start New Review",
     secondaryCta: "View Demo",
     note:
-      "Also includes the Writing Assistant — refine your own drafts with style-aware editing and deep proofreading.",
-    previewCaption: "Review workspace — illustrative preview",
+      "Also includes the Writing Assistant: refine your own drafts with style-aware editing and deep proofreading.",
+    previewCaption: "Review workspace (illustrative preview)",
     previewNote:
       "Matched passages are highlighted in your document preview; selecting a match emphasizes it and shows its source details.",
     previewPanelTitle: "Match details",
@@ -50,7 +50,7 @@ export const landing = {
         step: "Step 4",
         title: "Export a review copy",
         description:
-          "Download a highlighted DOCX or PDF review copy — a separate file, clearly labeled, with your original preserved.",
+          "Download a highlighted DOCX or PDF review copy: a separate file, clearly labeled, with your original preserved.",
       },
     ],
   },
@@ -66,7 +66,7 @@ export const landing = {
       {
         title: "Neutral review language",
         description:
-          "Matches are described as matched or source text — never auto-labeled. You decide each verdict: properly cited, direct quote, common knowledge, and more.",
+          "Matches are described as matched or source text. They are never auto-labeled. You decide each verdict: properly cited, direct quote, common knowledge, and more.",
       },
       {
         title: "Highlighted review copy",
@@ -81,7 +81,7 @@ export const landing = {
       {
         title: "Shared document library",
         description:
-          "Every document you upload lives in one library, shared between the Similarity Review Workspace and the Writing Assistant — no re-uploading.",
+          "Every document you upload lives in one library, shared between the Similarity Review Workspace and the Writing Assistant, with no re-uploading.",
       },
       {
         title: "Audit history",
@@ -94,7 +94,7 @@ export const landing = {
     eyebrow: "Document review workflow",
     title: "A workspace designed around the way you review",
     description:
-      "Navigate matches, inspect sources, and record decisions — all in one split-screen workspace.",
+      "Navigate matches, inspect sources, and record decisions, all in one split-screen workspace.",
     reviewWorkspace: {
       title: "Similarity Review Workspace",
       bullets: [
@@ -108,11 +108,11 @@ export const landing = {
     writingAssistant: {
       title: "Writing Assistant",
       intro:
-        "A companion module for improving your own drafts: style-aware editing at the passage, paragraph, section, or document level, plus deep proofreading with categorized issues. It works only on your own writing — it never accepts similarity reports and never optimizes for detection scores.",
+        "A companion module for improving your own drafts: style-aware editing at the passage, paragraph, section, or document level, plus deep proofreading with categorized issues. It works only on your own writing. It never accepts similarity reports and never optimizes for detection scores.",
       bullets: [
         "Upload DOCX or PDF, or start from any document in your library",
         "Choose a style profile; citations and references are protected",
-        "Review every suggestion before accepting — nothing changes silently",
+        "Review every suggestion before accepting. Nothing changes silently",
         "Export polished DOCX or PDF copies",
       ],
     },
@@ -134,7 +134,7 @@ export const landing = {
       {
         title: "Validated uploads",
         description:
-          "Files are checked server-side by content and size — extensions are never trusted.",
+          "Files are checked server-side by content and size. Extensions are never trusted.",
       },
       {
         title: "No training on your work",
@@ -150,7 +150,7 @@ export const landing = {
       {
         badge: "DOCX",
         description:
-          "Microsoft Word documents — upload originals and writing drafts; export highlighted review copies.",
+          "Microsoft Word documents. Upload originals and writing drafts; export highlighted review copies.",
       },
       {
         badge: "PDF",
@@ -211,7 +211,7 @@ export const landing = {
       {
         question: "Can I use the Writing Assistant and the review workspace together?",
         answer:
-          "Yes. They share one workspace and one document library — move a document between modules without re-uploading.",
+          "Yes. They share one workspace and one document library. Move a document between modules without re-uploading.",
       },
       {
         question: "Is my work private?",
@@ -228,7 +228,7 @@ export const landing = {
   finalCta: {
     title: "Start reviewing with confidence",
     description:
-      "Open the app, upload your first document, and see every match in context — with your originals always safe.",
+      "Open the app, upload your first document, and see every match in context, with your originals always safe.",
     primaryCta: "Start New Review",
     secondaryCta: "Read the manual",
   },

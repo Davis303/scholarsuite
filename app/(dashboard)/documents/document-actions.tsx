@@ -55,7 +55,7 @@ export function DocumentActions({ doc }: { doc: LibraryDocument }) {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error("Your session has expired. Please sign in again.");
+      if (!user) throw new Error("Your session has expired. Please refresh the page and try again.");
 
       await removeStorageObjects(doc.storage_path);
 

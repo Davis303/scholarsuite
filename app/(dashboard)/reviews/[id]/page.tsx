@@ -40,7 +40,7 @@ export default async function ReviewWorkspacePage({
   if (!auth) {
     return (
       <Card className="p-8 text-center">
-        <p className="text-slate-600">Please sign in to view this review.</p>
+        <p className="text-slate-600">We couldn&apos;t start your free session. Please refresh the page.</p>
       </Card>
     );
   }

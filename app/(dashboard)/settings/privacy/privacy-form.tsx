@@ -35,7 +35,7 @@ export function RetentionForm({
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error("Your session has expired. Please sign in again.");
+      if (!user) throw new Error("Your session has expired. Please refresh the page and try again.");
       const { error: upsertError } = await supabase.from("user_settings").upsert(
         {
           user_id: user.id,

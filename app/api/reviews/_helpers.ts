@@ -10,7 +10,7 @@ export type { AuthedContext };
 
 export function unauthorized() {
   return NextResponse.json(
-    { error: 'Please sign in to continue.' },
+    { error: 'Your session could not be started. Please refresh and try again.' },
     { status: 401 },
   );
 }
