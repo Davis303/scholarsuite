@@ -1,39 +1,37 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
-const PROTECTED_PREFIXES = [
-  "/dashboard",
-  "/reviews",
-  "/writing",
-  "/documents",
-  "/settings",
+// ScholarSuite is free and needs no account. These legacy authentication
+// routes no longer exist; keep redirects so old links and bookmarks land
+// in the app instead of a 404.
+const LEGACY_AUTH_PATHS = [
+  "/sign-in",
+  "/sign-up",
+  "/forgot-password",
+  "/reset-password",
+  "/auth/verify",
 ];
 
-function isProtected(pathname: string): boolean {
-  return PROTECTED_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
-  );
-}
-
 export async function middleware(request: NextRequest) {
-  // If the database isn't configured or reachable, treat every request as
-  // signed out instead of crashing: public pages still render, protected
-  // pages redirect to sign-in.
+  // If the database isn't configured or reachable, keep rendering instead
+  // of crashing; the app shows a friendly error where data is needed.
   let response = NextResponse.next({ request });
-  let user = null;
   try {
     const result = await updateSession(request);
     response = result.response;
-    user = result.user;
   } catch {
-    // no-op: fall through as signed out
+    // no-op: fall through
   }
   const { pathname } = request.nextUrl;
 
-  if (isProtected(pathname) && !user) {
+  if (
+    LEGACY_AUTH_PATHS.some(
+      (path) => pathname === path || pathname.startsWith(`${path}/`)
+    )
+  ) {
     const url = request.nextUrl.clone();
-    url.pathname = "/sign-in";
-    url.searchParams.set("next", pathname);
+    url.pathname = "/dashboard";
+    url.search = "";
     return NextResponse.redirect(url);
   }
 

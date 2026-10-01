@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
 import { createServerClient } from "@/lib/supabase/server";
 import { DashboardShell } from "@/components/layout/DashboardShell";
+import { EnsureSession } from "@/components/auth/EnsureSession";
 
 export default async function DashboardLayout({
   children,
@@ -12,13 +12,11 @@ export default async function DashboardLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
+  // No accounts: first-time visitors get a free anonymous session started
+  // automatically, then the page reloads with their workspace ready.
   if (!user) {
-    redirect("/sign-in");
+    return <EnsureSession />;
   }
 
-  return (
-    <DashboardShell userEmail={user.email ?? null} isGuest={!!user.is_anonymous}>
-      {children}
-    </DashboardShell>
-  );
+  return <DashboardShell>{children}</DashboardShell>;
 }

@@ -1,49 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { ReactNode, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { TopNav } from "./TopNav";
-import { UpgradeModal } from "./UpgradeModal";
 
-export interface DashboardShellProps {
-  children: ReactNode;
-  userEmail: string | null;
-  isGuest: boolean;
-}
-
-export function DashboardShell({ children, userEmail, isGuest }: DashboardShellProps) {
+export function DashboardShell({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [upgradeOpen, setUpgradeOpen] = useState(false);
-  const openUpgrade = () => setUpgradeOpen(true);
-
-  // Honor "Keep me signed in" being unchecked: such sessions are ephemeral and
-  // must not survive a new tab or a browser restart. The sign-in page stores
-  // "scholarsuite.remember" = "0" in localStorage and a "scholarsuite.ephemeral"
-  // marker in sessionStorage (cleared when the tab/window closes). If this tab
-  // lacks the marker, the session was meant to be temporary, sign out.
-  useEffect(() => {
-    const remember = window.localStorage.getItem("scholarsuite.remember");
-    const ephemeral = window.sessionStorage.getItem("scholarsuite.ephemeral");
-    if (remember === "0" && !ephemeral) {
-      createClient()
-        .auth.signOut()
-        .finally(() => {
-          window.location.href = "/sign-in";
-        });
-    }
-  }, []);
 
   return (
     <div className="flex min-h-screen bg-[#fafafa]">
-      <Sidebar
-        open={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        userEmail={userEmail}
-        isGuest={isGuest}
-        onUpgrade={openUpgrade}
-      />
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="lg:hidden">
           <button
@@ -57,23 +23,7 @@ export function DashboardShell({ children, userEmail, isGuest }: DashboardShellP
             </svg>
           </button>
         </div>
-        <TopNav userEmail={userEmail} isGuest={isGuest} onUpgrade={openUpgrade} />
-        <UpgradeModal open={upgradeOpen} onClose={() => setUpgradeOpen(false)} />
-        {isGuest ? (
-          <div className="border-b border-amber-200 bg-amber-50 px-4 py-2.5 sm:px-6">
-            <p className="text-sm text-amber-900">
-              <span className="font-medium">You&apos;re browsing as a guest. Work is temporary</span>{" "}
-              and may be removed automatically.{" "}
-              <Link
-                href="/settings"
-                className="font-medium text-accent-700 underline hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-              >
-                Create a free account to keep your work
-              </Link>
-              .
-            </p>
-          </div>
-        ) : null}
+        <TopNav />
         <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">{children}</main>
       </div>
     </div>

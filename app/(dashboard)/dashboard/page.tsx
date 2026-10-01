@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { createServerClient } from "@/lib/supabase/server";
 import { formatDate, formatRelativeTime } from "@/lib/format";
 import { Badge } from "@/components/ui/Badge";
@@ -55,7 +54,7 @@ export default async function DashboardHomePage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/sign-in");
+  if (!user) return null;
 
   const [{ count: reviewCount }, { count: documentCount }, { count: passageCount }, { count: writingCount }] =
     await Promise.all([

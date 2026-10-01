@@ -7,8 +7,7 @@
 
 export const landing = {
   header: {
-    signIn: "Sign in",
-    getStarted: "Get started",
+    getStarted: "Start free",
   },
   hero: {
     eyebrow: "Academic integrity workspace",
@@ -212,26 +211,26 @@ export const landing = {
       {
         question: "Can I use the Writing Assistant and the review workspace together?",
         answer:
-          "Yes. They share one account, one sign-in, and one document library — move a document between modules without re-uploading.",
+          "Yes. They share one workspace and one document library — move a document between modules without re-uploading.",
       },
       {
         question: "Is my work private?",
         answer:
-          "Yes. Your documents are visible only to you, never publicly accessible, and you can delete them or your whole account at any time.",
+          "Yes. Your documents are visible only to you, never publicly accessible, and you can delete them at any time.",
       },
       {
-        question: "Can I try it without creating an account?",
+        question: "Do I need to create an account?",
         answer:
-          "Yes. Continue as a guest to explore the workspace; your work stays temporary until you create a free account.",
+          "No. ScholarSuite is completely free with no account needed. Just open the app and start working.",
       },
     ],
   },
   finalCta: {
     title: "Start reviewing with confidence",
     description:
-      "Create a free account, upload your first document, and see every match in context — with your originals always safe.",
+      "Open the app, upload your first document, and see every match in context — with your originals always safe.",
     primaryCta: "Start New Review",
-    secondaryCta: "Sign in",
+    secondaryCta: "Read the manual",
   },
   footer: {
     rights: "All rights reserved.",

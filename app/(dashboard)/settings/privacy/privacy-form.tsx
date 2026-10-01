@@ -107,13 +107,11 @@ export function DeleteAccountSection() {
       const response = await fetch("/api/account", { method: "DELETE" });
       const data = (await response.json()) as { error?: string };
       if (!response.ok) {
-        throw new Error(data.error || "We couldn't delete your account. Please try again later.");
+        throw new Error(data.error || "We couldn't delete your data. Please try again later.");
       }
       const supabase = createClient();
       await supabase.auth.signOut();
-      window.localStorage.removeItem("scholarsuite.remember");
-      window.sessionStorage.removeItem("scholarsuite.ephemeral");
-      router.push("/");
+            router.push("/");
       router.refresh();
     } catch (err) {
       toast(err instanceof Error ? err.message : "Something went wrong. Please try again.", "error");
@@ -124,19 +122,19 @@ export function DeleteAccountSection() {
 
   return (
     <Card className="border-red-200 p-6">
-      <h2 className="text-base font-semibold text-slate-900">Delete account</h2>
+      <h2 className="text-base font-semibold text-slate-900">Delete workspace data</h2>
       <p className="mt-1 text-sm text-slate-600">
-        Permanently delete your account, all documents, reviews, writing drafts, and stored files.
+        Permanently delete all your documents, reviews, writing drafts, and stored files.
         This cannot be undone.
       </p>
       <Button variant="destructive" className="mt-4" onClick={() => setOpen(true)}>
-        Delete my account
+        Delete my data
       </Button>
 
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        title="Delete your account?"
+        title="Delete your workspace data?"
         actions={
           <Button
             variant="destructive"
@@ -149,7 +147,7 @@ export function DeleteAccountSection() {
         }
       >
         <p>
-          This permanently removes your account, documents, reviews, writing drafts, exports, and
+          This permanently removes your documents, reviews, writing drafts, exports, and
           all stored files. Type <span className="font-semibold">DELETE</span> to confirm.
         </p>
         <div className="mt-4">

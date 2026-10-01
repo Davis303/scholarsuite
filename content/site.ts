@@ -31,6 +31,6 @@ export const primaryNav: NavLink[] = [
 /** Public footer links on the landing page. */
 export const footerNav: NavLink[] = [
   { key: "privacy", label: "Privacy", href: "/privacy" },
-  { key: "sign-in", label: "Sign in", href: "/sign-in" },
-  { key: "sign-up", label: "Get started", href: "/sign-up" },
+  { key: "manual", label: "User Manual", href: "/manual" },
+  { key: "start", label: "Start free", href: "/dashboard" },
 ];

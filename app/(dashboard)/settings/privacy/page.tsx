@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { createServerClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { RetentionForm, DeleteAccountSection } from "./privacy-form";
@@ -8,7 +7,7 @@ export default async function PrivacySettingsPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/sign-in");
+  if (!user) return null;
 
   const { data: settings } = await supabase
     .from("user_settings")

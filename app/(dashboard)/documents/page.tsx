@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { createServerClient } from "@/lib/supabase/server";
 import { formatBytes, formatDate } from "@/lib/format";
 import { Badge } from "@/components/ui/Badge";
@@ -45,7 +44,7 @@ export default async function DocumentsPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/sign-in");
+  if (!user) return null;
 
   const [{ data: documentRows }, { data: writingRows }] = await Promise.all([
     supabase

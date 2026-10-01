@@ -93,13 +93,7 @@ export default function LandingPage() {
           </div>
           <nav aria-label="Site" className="flex items-center gap-2 sm:gap-3">
             <Link
-              href="/sign-in"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-            >
-              {c.header.signIn}
-            </Link>
-            <Link
-              href="/sign-up"
+              href="/dashboard"
               className="rounded-lg bg-accent-600 px-4 py-2 text-sm font-medium text-white hover:bg-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
             >
               {c.header.getStarted}
@@ -121,7 +115,7 @@ export default function LandingPage() {
             <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600">{c.hero.subtitle}</p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
-                href="/sign-up"
+                href="/dashboard"
                 className="w-full rounded-lg bg-gradient-to-r from-accent-500 to-brand-600 px-6 py-3 text-base font-medium text-white shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 sm:w-auto"
               >
                 {c.hero.primaryCta}
@@ -328,13 +322,13 @@ export default function LandingPage() {
           <p className="mx-auto mt-4 max-w-xl text-slate-600">{c.finalCta.description}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/sign-up"
+              href="/dashboard"
               className="w-full rounded-lg bg-gradient-to-r from-accent-500 to-brand-600 px-6 py-3 text-base font-medium text-white shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 sm:w-auto"
             >
               {c.finalCta.primaryCta}
             </Link>
             <Link
-              href="/sign-in"
+              href="/manual"
               className="w-full rounded-lg border border-slate-300 bg-white px-6 py-3 text-center text-base font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 sm:w-auto"
             >
               {c.finalCta.secondaryCta}

@@ -1,17 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { usePathname } from "next/navigation";
 import { getAppName } from "@/content/site";
 import type { JSX } from "react";
 
 export interface SidebarProps {
   open: boolean;
   onClose: () => void;
-  userEmail: string | null;
-  isGuest: boolean;
-  onUpgrade: () => void;
 }
 
 const appName = getAppName();
@@ -115,18 +111,8 @@ function NavLink({ item, pathname, onClose }: { item: NavItem; pathname: string;
   );
 }
 
-export function Sidebar({ open, onClose, userEmail, isGuest, onUpgrade }: SidebarProps) {
+export function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const router = useRouter();
-
-  const signOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    window.localStorage.removeItem("scholarsuite.remember");
-    window.sessionStorage.removeItem("scholarsuite.ephemeral");
-    router.push("/sign-in");
-    router.refresh();
-  };
 
   const nav = (
     <div className="flex h-full flex-col">
@@ -170,34 +156,11 @@ export function Sidebar({ open, onClose, userEmail, isGuest, onUpgrade }: Sideba
 
       <div className="px-3 pb-3 pt-2">
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <p className="text-sm font-semibold text-slate-900">Free Plan</p>
+          <p className="text-sm font-semibold text-slate-900">Free forever</p>
           <p className="mt-0.5 text-xs text-slate-500">
-            Free plan · no credit card required
+            Every feature is free. No account, no credit card.
           </p>
-          <button
-            type="button"
-            onClick={onUpgrade}
-            className="mt-3 w-full rounded-full bg-gradient-to-r from-accent-500 to-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
-          >
-            Upgrade Plan
-          </button>
         </div>
-      </div>
-
-      <div className="border-t border-slate-200 px-4 py-3">
-        <p className="truncate px-1 text-xs text-slate-500" title={userEmail ?? undefined}>
-          {isGuest ? "Guest session" : userEmail}
-        </p>
-        <button
-          type="button"
-          onClick={signOut}
-          className="mt-1.5 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-        >
-          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
-          </svg>
-          Sign out
-        </button>
       </div>
     </div>
   );
