@@ -102,7 +102,7 @@ export function GuestUpgradeForm() {
         <h2 className="text-base font-semibold text-slate-900">Almost done</h2>
         <p className="mt-2 text-sm text-slate-700">
           We sent a confirmation link to <span className="font-medium">{email.trim()}</span>. Click
-          it to finish creating your account — your guest work will be preserved.
+          it to finish creating your account. Your guest work will be preserved.
         </p>
       </Card>
     );
@@ -110,7 +110,7 @@ export function GuestUpgradeForm() {
 
   return (
     <Card className="border-accent-200 bg-accent-50 p-6">
-      <h2 className="text-base font-semibold text-slate-900">Keep your work — create a free account</h2>
+      <h2 className="text-base font-semibold text-slate-900">Keep your work: create a free account</h2>
       <p className="mt-1 text-sm text-slate-600">
         You&apos;re browsing as a guest. Add an email and password to keep everything you&apos;ve
         created; nothing will be lost.

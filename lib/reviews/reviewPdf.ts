@@ -73,7 +73,7 @@ function wrapLine(text: string, font: PDFFont, size: number, maxWidth: number): 
  * Fidelity notes (documented for the docs builder):
  * - This is NOT the original layout: text is re-flowed in Helvetica on A4.
  * - Images, tables, headers/footers, fonts and exact pagination are not preserved.
- * - The UI must label it "review copy — layout may differ from the original".
+ * - The UI must label it "review copy, layout may differ from the original".
  */
 export async function buildReviewCopyPdf(
   pages: ExtractedPage[],
@@ -92,7 +92,7 @@ export async function buildReviewCopyPdf(
   {
     const page = newPage();
     let y = PAGE_H - 120;
-    page.drawText('Similarity Review — Review Copy', {
+    page.drawText('Similarity Review: Review Copy', {
       x: MARGIN,
       y,
       size: 20,

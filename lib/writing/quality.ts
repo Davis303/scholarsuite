@@ -8,7 +8,7 @@
 
 import type { QualityCheckResult } from "./types";
 
-const EM_DASH_RE = /—/;
+const EM_DASH_RE = /\u2014/;
 
 const CITATION_RES = [
   // (Author, Year) and (Author et al., Year)

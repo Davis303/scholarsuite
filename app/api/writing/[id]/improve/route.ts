@@ -113,7 +113,7 @@ function sseEvent(payload: unknown): string {
 }
 
 /**
- * POST /api/writing/[id]/improve — improve text at a chosen scope.
+ * POST /api/writing/[id]/improve, improve text at a chosen scope.
  * Body: { scope: 'selection'|'paragraph'|'section'|'document', targetText?, context? }
  *
  * Each generated revision passes the rule-based quality check (up to 2

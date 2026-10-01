@@ -6,7 +6,7 @@ const appName = process.env.NEXT_PUBLIC_APP_NAME ?? "ScholarSuite";
 const COMMITMENTS: Array<[string, string]> = [
   [
     "Your documents are private",
-    `Every document you upload to ${appName} is visible only to you. Files live in private storage and are served through short-lived signed links — there are no public URLs and nothing is indexed by search engines.`,
+    `Every document you upload to ${appName} is visible only to you. Files live in private storage and are served through short-lived signed links. There are no public URLs and nothing is indexed by search engines.`,
   ],
   [
     "Your work belongs to you",
@@ -14,11 +14,11 @@ const COMMITMENTS: Array<[string, string]> = [
   ],
   [
     "Delete anything, anytime",
-    "Remove individual documents from your library whenever you like. Deleting a document removes its stored files and its records. You can also delete your entire account — everything goes with it.",
+    "Remove individual documents from your library whenever you like. Deleting a document removes its stored files and its records. You can also delete your entire account. Everything goes with it.",
   ],
   [
     "Automatic cleanup, on your terms",
-    "In your privacy settings you can set how long documents are kept and turn on automatic deletion. A scheduled cleanup permanently removes documents older than your retention period — files and database records alike.",
+    "In your privacy settings you can set how long documents are kept and turn on automatic deletion. A scheduled cleanup permanently removes documents older than your retention period, files and database records alike.",
   ],
   [
     "Temporary files are removed",
@@ -30,7 +30,7 @@ const COMMITMENTS: Array<[string, string]> = [
   ],
   [
     "Validated, isolated storage",
-    "Uploads are validated server-side by file content and size — file extensions are never trusted. Strict per-user isolation means your data is separated from every other account at the database level.",
+    "Uploads are validated server-side by file content and size. File extensions are never trusted. Strict per-user isolation means your data is separated from every other account at the database level.",
   ],
   [
     "Transparent activity log",

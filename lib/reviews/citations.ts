@@ -1,6 +1,6 @@
 /**
  * Citation detection near matched passages.
- * Regex heuristics only — never treated as proof of proper citation,
+ * Regex heuristics only, never treated as proof of proper citation,
  * just a signal for the reviewer to verify.
  */
 

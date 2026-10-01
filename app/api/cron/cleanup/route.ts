@@ -12,7 +12,7 @@ interface ExpiredRow {
 }
 
 /**
- * Scheduled cleanup (Vercel Cron). Guarded by a bearer token — CRON_SECRET is
+ * Scheduled cleanup (Vercel Cron). Guarded by a bearer token, CRON_SECRET is
  * never exposed to the client. Deletes:
  *  1. Documents and writing drafts older than each user's retention period
  *     (only for users who enabled automatic deletion), including stored files.
@@ -157,7 +157,7 @@ async function removeFromAllBuckets(
   storagePath: string
 ): Promise<void> {
   for (const bucket of STORAGE_BUCKETS) {
-    // Missing objects are fine — the path may live in a different bucket.
+    // Missing objects are fine, the path may live in a different bucket.
     await supabase.storage.from(bucket).remove([storagePath]);
   }
 }

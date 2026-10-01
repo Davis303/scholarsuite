@@ -10,8 +10,8 @@ const createSchema = z.object({
 });
 
 /**
- * GET /api/writing/terminology — list the user's terminology rules.
- * POST /api/writing/terminology — add a rule { term, note? }.
+ * GET /api/writing/terminology, list the user's terminology rules.
+ * POST /api/writing/terminology, add a rule { term, note? }.
  * Rules are respected by improve/proofread prompts.
  */
 export async function GET() {

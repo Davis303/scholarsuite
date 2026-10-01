@@ -17,7 +17,7 @@ function triggerDownload(url: string) {
 /**
  * Prominent export actions for the review workspace.
  * DOCX: highlighted in-place copy (DOCX originals) or rebuilt review copy.
- * PDF: re-flowed review copy — always honestly labeled.
+ * PDF: re-flowed review copy, always honestly labeled.
  */
 export function ExportButtons({
   reviewId,
@@ -76,7 +76,7 @@ export function ExportButtons({
           Export PDF review copy
         </Button>
         <span className="mt-1 max-w-[220px] text-[11px] leading-tight text-slate-500">
-          Review copy — layout may differ from the original.
+          Review copy: layout may differ from the original.
         </span>
       </div>
     </div>

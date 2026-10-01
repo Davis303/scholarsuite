@@ -61,10 +61,10 @@ const MAIN_NAV: NavItem[] = [
 ];
 
 /**
- * AI Tools — the product's tool list. Deep Proofread lives inside the
+ * AI Tools, the product's tool list. Deep Proofread lives inside the
  * Writing Assistant module (its own tab in the document editor), so both
  * entries open the writing module; the active pill reflects which view
- * the user is in. No other tools exist — nothing detector-related
+ * the user is in. No other tools exist, nothing detector-related
  * may ever be added here.
  */
 const TOOL_NAV: NavItem[] = [

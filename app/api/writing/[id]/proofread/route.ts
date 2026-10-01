@@ -74,7 +74,7 @@ function extractJson(text: string): string {
 }
 
 /**
- * POST /api/writing/[id]/proofread — Deep Proofread at a chosen scope.
+ * POST /api/writing/[id]/proofread, Deep Proofread at a chosen scope.
  * Issues are NEVER auto-applied; they are stored as 'open' proofread_issues
  * for the user to accept, reject, edit, or ignore.
  */

@@ -43,7 +43,7 @@ function maxUploadBytes(): number {
 }
 
 /**
- * POST /api/writing/documents — upload a PDF or DOCX of the user's own
+ * POST /api/writing/documents, upload a PDF or DOCX of the user's own
  * academic writing. Magic-byte validated; stored privately; creates a
  * writing_docs row with status 'uploaded'.
  */
@@ -154,7 +154,7 @@ const LIST_STATUSES = new Set([
 ]);
 
 /**
- * GET /api/writing/documents?search=&status= — list the user's writing docs
+ * GET /api/writing/documents?search=&status=, list the user's writing docs
  * with derived stats (pages, sections processed, edits made).
  */
 export async function GET(req: NextRequest) {

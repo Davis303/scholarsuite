@@ -19,7 +19,7 @@ export interface AddedPassage {
 }
 
 /**
- * Manual "add passage" fallback — used when the similarity report format
+ * Manual "add passage" fallback, used when the similarity report format
  * cannot be parsed automatically, or when the reviewer spots another match.
  */
 export function AddPassageModal({

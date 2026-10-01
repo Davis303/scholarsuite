@@ -120,7 +120,7 @@ export default async function DocumentsPage({
     <div>
       <PageHeader
         title="Documents"
-        description="Your shared document library — every manuscript, similarity report, and writing draft in one place."
+        description="Your shared document library: every manuscript, similarity report, and writing draft in one place."
         actions={
           <Link
             href="/reviews/new"

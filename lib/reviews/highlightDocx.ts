@@ -172,7 +172,7 @@ function noticeParagraphs(title: string): Paragraph[] {
     new Paragraph({
       children: [
         new TextRun({
-          text: `Highlighted review copy — generated ${date}. Matched passages are highlighted in yellow. The original document is preserved unchanged.`,
+          text: `Highlighted review copy, generated ${date}. Matched passages are highlighted in yellow. The original document is preserved unchanged.`,
           italics: true,
           color: '64748B',
         }),
@@ -244,7 +244,7 @@ export async function buildReviewCopyDocxFromText(
     new Paragraph({
       children: [
         new TextRun({
-          text: 'Review copy — layout may differ from the original.',
+          text: 'Review copy: layout may differ from the original.',
           bold: true,
         }),
       ],

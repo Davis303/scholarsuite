@@ -10,7 +10,7 @@ export interface ParsedPassage {
 
 export interface ParsedReport {
   passages: ParsedPassage[];
-  /** True when nothing could be parsed — the UI must offer manual entry. */
+  /** True when nothing could be parsed, the UI must offer manual entry. */
   needsManualReview: boolean;
 }
 
@@ -137,7 +137,7 @@ export function parseSimilarityReport(pages: ExtractedPage[]): ParsedReport {
       inSection = true;
       currentIdx = i;
       const rest = numbered[2].trim();
-      // The number might prefix a source label line ("1. example.com — 12%").
+      // The number might prefix a source label line ("1. example.com, 12%").
       if (validPassage(rest) || PCT_RE.test(rest)) {
         current = [rest];
       } else {

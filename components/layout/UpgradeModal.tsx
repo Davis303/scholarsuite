@@ -5,7 +5,7 @@ import { Modal } from "@/components/ui/Modal";
 import { getAppName } from "@/content/site";
 
 /**
- * UpgradeModal — honest placeholder for future paid plans.
+ * UpgradeModal, honest placeholder for future paid plans.
  *
  * There is no checkout, pricing, or payment form here on purpose:
  * ScholarSuite is free during early access, so the modal says exactly that.
@@ -29,7 +29,7 @@ export function UpgradeModal({
       }
     >
       <p className="font-medium text-slate-900">
-        Paid plans are coming soon — {getAppName()} is free during early access.
+        Paid plans are coming soon. {getAppName()} is free during early access.
       </p>
       <p className="mt-2 text-slate-600">
         Every feature is fully available to you right now. There are no usage

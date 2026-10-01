@@ -2,7 +2,7 @@
 
 export function formatDate(value: string | number | Date): string {
   const d = value instanceof Date ? value : new Date(value);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return '';
   return d.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -11,7 +11,7 @@ export function formatDate(value: string | number | Date): string {
 }
 
 export function formatBytes(bytes: number | null | undefined): string {
-  if (bytes == null || Number.isNaN(bytes)) return '—';
+  if (bytes == null || Number.isNaN(bytes)) return '';
   if (bytes < 1024) return `${bytes} B`;
   const units = ['KB', 'MB', 'GB'];
   let v = bytes / 1024;
@@ -25,7 +25,7 @@ export function formatBytes(bytes: number | null | undefined): string {
 
 export function formatRelativeTime(value: string | number | Date): string {
   const d = value instanceof Date ? value : new Date(value);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return '';
   const diffMs = Date.now() - d.getTime();
   const mins = Math.floor(diffMs / 60000);
   if (mins < 1) return 'just now';

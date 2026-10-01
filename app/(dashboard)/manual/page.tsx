@@ -23,15 +23,15 @@ const TOC: TocItem[] = [
 const FAQS: Array<[string, string]> = [
   [
     "Does ScholarSuite rewrite my text to beat similarity checkers?",
-    `No — never. The Writing Assistant helps improve your own drafts for clarity, grammar, and academic style, and the Similarity Review only highlights and organizes matches so you can check them. Matched passages are never rewritten or paraphrased, and nothing is ever optimized for a similarity score.`,
+    `No, never. The Writing Assistant helps improve your own drafts for clarity, grammar, and academic style, and the Similarity Review only highlights and organizes matches so you can check them. Matched passages are never rewritten or paraphrased, and nothing is ever optimized for a similarity score.`,
   ],
   [
     "Will my original document ever be changed?",
-    `No. Your uploaded files are never modified. The Similarity Review creates a separate highlighted review copy, and the Writing Assistant only applies changes you explicitly accept — your original stays exactly as you uploaded it.`,
+    `No. Your uploaded files are never modified. The Similarity Review creates a separate highlighted review copy, and the Writing Assistant only applies changes you explicitly accept. Your original stays exactly as you uploaded it.`,
   ],
   [
     "Is ScholarSuite free? Are there usage limits?",
-    `Yes, it's free, and there are no usage limits — no word caps, no locked features, no throttling. Everything in the app is fully usable.`,
+    `Yes, it's free, and there are no usage limits: no word caps, no locked features, no throttling. Everything in the app is fully usable.`,
   ],
   [
     "Can I try it without creating an account?",
@@ -43,7 +43,7 @@ const FAQS: Array<[string, string]> = [
   ],
   [
     "Do the AI writing suggestions always work?",
-    `The review, highlighting, and proofreading-organization tools always work. AI-generated writing suggestions need the site owner to connect an AI service — if it isn't connected, you'll see a clear notice instead of a suggestion, and everything else keeps working normally.`,
+    `The review, highlighting, and proofreading-organization tools always work. AI-generated writing suggestions need the site owner to connect an AI service. If it isn't connected, you'll see a clear notice instead of a suggestion, and everything else keeps working normally.`,
   ],
 ];
 
@@ -142,12 +142,12 @@ export default function ManualPage() {
           </p>
           <ul className="list-disc space-y-2 pl-5">
             <li>
-              <strong className="font-semibold text-slate-900">Writing Assistant</strong> — improves
+              <strong className="font-semibold text-slate-900">Writing Assistant</strong>: improves
               your own academic drafts: clearer sentences, better grammar, and a consistent academic
               style that still sounds like you.
             </li>
             <li>
-              <strong className="font-semibold text-slate-900">Similarity Review</strong> — reviews a
+              <strong className="font-semibold text-slate-900">Similarity Review</strong>: reviews a
               similarity report against your manuscript: it finds the matched passages, highlights
               them in a review copy, and helps you check each one calmly and systematically.
             </li>
@@ -156,15 +156,15 @@ export default function ManualPage() {
             <strong className="font-semibold text-slate-900">The bridge between them:</strong> every
             document you upload lives in one shared library, visible from both tools. From any
             writing draft you can choose <em>Send to similarity review</em> to carry the document
-            straight over — no re-uploading, no second login. Both tools are always one click away
+            straight over. No re-uploading, no second login. Both tools are always one click away
             in the left sidebar.
           </p>
         </Section>
 
-        <Section id="writing-assistant" index={2} title="Writing Assistant — what it's for & how to use it">
+        <Section id="writing-assistant" index={2} title="Writing Assistant: what it's for and how to use it">
           <p>
             <strong className="font-semibold text-slate-900">What it&apos;s for:</strong> improving
-            drafts you wrote yourself — clearer sentences, correct grammar, and polished academic
+            drafts you wrote yourself, clearer sentences, correct grammar, and polished academic
             expression. It learns <em>your</em> writing style first, so suggestions sound like you
             on a good day, not like a robot.
           </p>
@@ -178,15 +178,15 @@ export default function ManualPage() {
               </>,
               <>
                 <strong className="font-semibold text-slate-900">Let it learn your style.</strong>{" "}
-                The app reads the whole document and builds your personal style profile — your tone,
-                sentence length, and vocabulary — before suggesting anything.
+                The app reads the whole document and builds your personal style profile (your tone,
+                sentence length, and vocabulary) before suggesting anything.
               </>,
               <>
                 <strong className="font-semibold text-slate-900">Choose how much to improve:</strong>{" "}
                 selected text, a paragraph, a whole section, or the entire document.
               </>,
               <>
-                <strong className="font-semibold text-slate-900">Review each suggestion side by side</strong> —
+                <strong className="font-semibold text-slate-900">Review each suggestion side by side</strong>:
                 your original next to the improved version.
               </>,
               <>
@@ -210,10 +210,10 @@ export default function ManualPage() {
           </Note>
         </Section>
 
-        <Section id="deep-proofread" index={3} title="Deep Proofread — what it's for & how to use it">
+        <Section id="deep-proofread" index={3} title="Deep Proofread: what it's for and how to use it">
           <p>
             <strong className="font-semibold text-slate-900">What it&apos;s for:</strong> a final
-            quality check before you submit — grammar, academic style, clarity, citations,
+            quality check before you submit: grammar, academic style, clarity, citations,
             references, and numbers, all reviewed in the context of your full document.
           </p>
           <p className="font-medium text-slate-900">How to use it:</p>
@@ -229,9 +229,9 @@ export default function ManualPage() {
               </>,
               <>
                 <strong className="font-semibold text-slate-900">Work through the issues list.</strong>{" "}
-                Each issue shows its severity — <strong className="font-semibold text-slate-900">Minor</strong>,{" "}
+                Each issue shows its severity: <strong className="font-semibold text-slate-900">Minor</strong>,{" "}
                 <strong className="font-semibold text-slate-900">Needs Review</strong>, or{" "}
-                <strong className="font-semibold text-slate-900">Important</strong> — along with an
+                <strong className="font-semibold text-slate-900">Important</strong>, along with an
                 explanation, a suggested fix, and a confidence level.
               </>,
               <>
@@ -244,23 +244,23 @@ export default function ManualPage() {
               </>,
               <>
                 Finish with the <strong className="font-semibold text-slate-900">final summary</strong>:
-                what you accepted, what you rejected, and what still needs a look — including
+                what you accepted, what you rejected, and what still needs a look, including
                 citation and consistency items to verify yourself.
               </>,
             ]}
           />
           <Note>
             <strong className="font-semibold">You stay in control:</strong> Deep Proofread only
-            flags possible issues — nothing in your document changes without your approval.
+            flags possible issues. Nothing in your document changes without your approval.
           </Note>
         </Section>
 
-        <Section id="similarity-review" index={4} title="Similarity Review — what it's for & how to use it">
+        <Section id="similarity-review" index={4} title="Similarity Review: what it's for and how to use it">
           <p>
             <strong className="font-semibold text-slate-900">What it&apos;s for:</strong> calmly
             reviewing a similarity report against your manuscript. It shows you exactly where your
             document matches other sources, so you can verify citations and attribution passage by
-            passage — using neutral language like &ldquo;matched text,&rdquo; never accusations.
+            passage, using neutral language like &ldquo;matched text,&rdquo; never accusations.
           </p>
           <p className="font-medium text-slate-900">How to use it:</p>
           <Steps
@@ -281,8 +281,8 @@ export default function ManualPage() {
               </>,
               <>
                 <strong className="font-semibold text-slate-900">Record a verdict per match</strong>{" "}
-                — Properly Cited, Direct Quote, Common Knowledge, Citation Check, Source
-                Verification, or Needs Review — and add a note if you like.
+               , Properly Cited, Direct Quote, Common Knowledge, Citation Check, Source
+                Verification, or Needs Review, and add a note if you like.
               </>,
               <>
                 <strong className="font-semibold text-slate-900">Export the highlighted review copy</strong>{" "}
@@ -294,7 +294,7 @@ export default function ManualPage() {
           <Note>
             <strong className="font-semibold">Important:</strong> Similarity Review does{" "}
             <strong className="font-semibold">not</strong> rewrite or paraphrase matched text, and
-            it never modifies your original document — the original always stays untouched.
+            it never modifies your original document. The original always stays untouched.
           </Note>
         </Section>
 
@@ -316,12 +316,11 @@ export default function ManualPage() {
             </li>
             <li>
               <strong className="font-semibold text-slate-900">Continue as guest</strong> to try the
-              tools without an account. Guest work is temporary and may be removed automatically —
-              create a free account at any time to keep it, and your current work carries over.
+              tools without an account. Guest work is temporary and may be removed automatically. Create a free account at any time to keep it, and your current work carries over.
             </li>
             <li>
               <strong className="font-semibold text-slate-900">One account, both tools.</strong> The
-              same sign-in unlocks the Writing Assistant and Similarity Review — and in Settings →
+              same sign-in unlocks the Writing Assistant and Similarity Review, and in Settings →
               Active sessions you can see your signed-in devices and sign out everywhere at once.
             </li>
           </ul>
@@ -331,7 +330,7 @@ export default function ManualPage() {
           <ul className="list-disc space-y-2 pl-5">
             <li>
               <strong className="font-semibold text-slate-900">Private by default.</strong> Your
-              documents are visible only to you — never public, never indexed, never shared.
+              documents are visible only to you: never public, never indexed, never shared.
             </li>
             <li>
               <strong className="font-semibold text-slate-900">Delete anytime.</strong> Remove any

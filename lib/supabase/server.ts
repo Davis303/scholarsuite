@@ -35,7 +35,7 @@ export function createServerClient() {
 }
 
 /**
- * Service-role client. SERVER ONLY — never import into client components.
+ * Service-role client. SERVER ONLY, never import into client components.
  * Bypasses RLS; use only for privileged operations (cleanup jobs, admin APIs).
  */
 export function createServiceClient() {

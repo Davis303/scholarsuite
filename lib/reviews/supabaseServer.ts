@@ -19,7 +19,7 @@ export function getServerSupabase(): SupabaseClient {
   return createServerClient();
 }
 
-/** Service-role client (server only). Bypasses RLS — storage use only. */
+/** Service-role client (server only). Bypasses RLS, storage use only. */
 export function getServiceSupabase(): SupabaseClient {
   return createServiceClient();
 }

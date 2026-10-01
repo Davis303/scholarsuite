@@ -28,7 +28,7 @@ export const metadata = {
 /**
  * The similarity review workspace: document preview with highlighted
  * matched passages, match navigation, and per-match review controls.
- * The original file is re-extracted from private storage on each load —
+ * The original file is re-extracted from private storage on each load 
  * the stored original is never modified.
  */
 export default async function ReviewWorkspacePage({
@@ -63,7 +63,7 @@ export default async function ReviewWorkspacePage({
         <h1 className="text-lg font-semibold text-slate-900">This review is still processing</h1>
         <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">
           The document and similarity report are being analyzed. This usually takes
-          under a minute — open the review again shortly.
+          under a minute. Open the review again shortly.
         </p>
         <div className="mt-6">
           <Link href="/reviews">
@@ -114,7 +114,7 @@ export default async function ReviewWorkspacePage({
     return (
       <EmptyState
         title="The original document could not be loaded"
-        description="Its file is missing from storage. The review data is intact — try again later or start a new review."
+        description="Its file is missing from storage. The review data is intact. Try again later or start a new review."
         action={
           <Link href="/reviews">
             <Button variant="secondary">Back to My Reviews</Button>

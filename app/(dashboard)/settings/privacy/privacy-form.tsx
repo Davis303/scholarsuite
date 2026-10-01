@@ -59,7 +59,7 @@ export function RetentionForm({
       <h2 className="text-base font-semibold text-slate-900">Data retention</h2>
       <p className="mt-1 text-sm text-slate-600">
         Choose how long your documents are kept. With automatic deletion on, documents and
-        writing drafts older than your retention period are permanently removed — files and
+        writing drafts older than your retention period are permanently removed, files and
         records alike.
       </p>
       <form onSubmit={onSubmit} className="mt-4 max-w-md space-y-4">

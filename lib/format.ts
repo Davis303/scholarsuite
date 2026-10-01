@@ -1,6 +1,6 @@
 export function formatDate(value: string | Date): string {
   const date = typeof value === "string" ? new Date(value) : value;
-  if (Number.isNaN(date.getTime())) return "—";
+  if (Number.isNaN(date.getTime())) return "";
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -9,7 +9,7 @@ export function formatDate(value: string | Date): string {
 }
 
 export function formatBytes(bytes: number | null | undefined): string {
-  if (bytes === null || bytes === undefined || Number.isNaN(bytes)) return "—";
+  if (bytes === null || bytes === undefined || Number.isNaN(bytes)) return "";
   if (bytes === 0) return "0 B";
   const units = ["B", "KB", "MB", "GB"] as const;
   const index = Math.min(
@@ -22,7 +22,7 @@ export function formatBytes(bytes: number | null | undefined): string {
 
 export function formatRelativeTime(value: string | Date): string {
   const date = typeof value === "string" ? new Date(value) : value;
-  if (Number.isNaN(date.getTime())) return "—";
+  if (Number.isNaN(date.getTime())) return "";
   const diffMs = Date.now() - date.getTime();
   if (diffMs < 0) return formatDate(date);
   const minutes = Math.floor(diffMs / 60000);

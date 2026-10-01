@@ -17,7 +17,7 @@ function friendlyError(message: string): string {
     lower.includes("network request failed") ||
     lower.includes("load failed")
   ) {
-    return "We couldn't reach the server. The database may still be connecting — please try again in a little while.";
+    return "We couldn't reach the server. The database may still be connecting. Please try again in a little while.";
   }
   if (lower.includes("invalid login credentials")) {
     return "The email or password you entered is incorrect. Please try again.";

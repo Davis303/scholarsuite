@@ -44,7 +44,7 @@ function scorePassageInParagraph(
   if (prefixLen >= 60 && paraNorm.includes(passageNorm.slice(0, prefixLen))) {
     return 0.9;
   }
-  // Fallback: token overlap — fraction of passage tokens present in paragraph.
+  // Fallback: token overlap, fraction of passage tokens present in paragraph.
   return tokenOverlapScore(passageTokenSet, tokens(paraNorm));
 }
 

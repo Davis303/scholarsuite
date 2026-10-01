@@ -26,7 +26,7 @@ export default function NewReviewPage({
         <h1 className="text-2xl font-bold text-slate-900">New similarity review</h1>
         <p className="mt-1 text-sm text-slate-600">
           Upload your document and its similarity report. Matched passages are
-          identified for your review — content is never rewritten.
+          identified for your review. Content is never rewritten.
         </p>
       </div>
       {documentId ? (

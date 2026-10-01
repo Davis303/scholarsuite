@@ -8,7 +8,7 @@ import {
 export const runtime = "nodejs";
 
 /**
- * DELETE /api/writing/documents/[id] — delete a writing document, its
+ * DELETE /api/writing/documents/[id], delete a writing document, its
  * revisions, proofread data, and stored files.
  */
 export async function DELETE(

@@ -14,15 +14,18 @@
 import type { EditChunk, StyleProfile } from "./types";
 
 const STYLE_GUARDRAILS = `STYLE GUARDRAILS (follow all of them):
+- Write in natural, human-sounding English: simple, clear, and professional.
 - Preserve the author's original meaning, argument, details, and technical terminology exactly.
 - Match the author's vocabulary level, sentence structure, and academic tone. The document is the style reference; never replace the author's style with a generic academic style.
-- If the author uses simple academic English, keep it simple. No unnecessary sophistication, no longer sentences than needed, no explanations added.
+- If the author uses simple academic English, keep it simple. Never make the writing unnecessarily sophisticated. No longer sentences than needed, no explanations added.
+- Keep sentence structure natural and varied. Avoid monotonous rhythms, robotic wording, and AI-sounding phrasing.
 - Maintain tense, paragraph flow, and logical connections.
-- Write naturally and readably. No verbosity, no robotic patterns, no formulaic introductions, no artificial transitions, no repeated conclusions.
+- No verbosity, no formulaic introductions, no artificial transitions, no repeated conclusions.
 - Avoid generic AI phrases and overuse of "furthermore", "moreover", "therefore".
 - Avoid unnecessary passive voice, but keep the author's existing voice choices unless they hurt clarity.
-- NEVER use em dashes (—). Do not use them anywhere in the output.
-- Never invent facts, claims, numbers, sources, or citations. Never change a meaning to make it "sound better".`;
+- NEVER use em dashes. Do not use them anywhere in the output.
+- Never invent facts, claims, numbers, sources, or citations. Never change a meaning to make it "sound better".
+- Your output is a suggestion the author will review and accept or reject. Make each suggestion self-contained and easy to judge. If a sentence is already fine, leave it unchanged.`;
 
 const CITATION_GUARDRAILS = `CITATION PROTECTION:
 - Citations are protected content. Never invent, delete, or move citations.
@@ -106,7 +109,7 @@ CHECK CATEGORIES (use exactly these category keys):
 
 RULES:
 - Be context-aware: only flag issues you can support from the text provided.
-- Never use an em dash (—) anywhere in your output.
+- Never use an em dash anywhere in your output.
 - Use plain, non-alarming language. Ordinary issues are "minor"; use "needs_review" when the author should decide; use "important" only for clear errors.
 - Confidence is one of: high, medium, low.
 - originalText must be an exact quote from the target text.

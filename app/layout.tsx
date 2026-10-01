@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: `%s · ${appName}`,
   },
   description:
-    "Review academic similarity reports with precision, and refine your own writing — one secure workspace for researchers, editors, and university staff.",
+    "Review academic similarity reports with precision, and refine your own writing in one secure workspace for researchers, editors, and university staff.",
   icons: {
     icon: "/favicon.svg",
   },

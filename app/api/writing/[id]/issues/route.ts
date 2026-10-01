@@ -4,7 +4,7 @@ import { requireUser } from "@/lib/writing/supabase";
 export const runtime = "nodejs";
 
 /**
- * GET /api/writing/[id]/issues?runId= — list issues for a proofread run.
+ * GET /api/writing/[id]/issues?runId=, list issues for a proofread run.
  */
 export async function GET(
   req: NextRequest,

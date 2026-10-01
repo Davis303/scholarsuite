@@ -3,7 +3,7 @@
  *
  * Splits extracted sections into context windows so the LLM always sees the
  * target text together with its section heading, neighbouring sentences, the
- * full paragraph, and surrounding paragraphs — never isolated sentences.
+ * full paragraph, and surrounding paragraphs, never isolated sentences.
  */
 
 import type { EditChunk, ExtractedDocument } from "./types";

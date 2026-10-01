@@ -87,7 +87,7 @@ function renderHighlighted(
         <mark
           key={`m-${i}`}
           onClick={() => onSelect(s.matchIdx)}
-          title={`Similarity Match ${s.matchIdx + 1} — select to review`}
+          title={`Similarity Match ${s.matchIdx + 1}: select to review`}
           className={
             selected
               ? 'cursor-pointer rounded-sm bg-amber-300 ring-2 ring-amber-500'
@@ -458,7 +458,7 @@ export function WorkspaceClient({
                     <PassageStatusBadge status={p.status} />
                   </span>
                   <span className="mt-1 block truncate text-xs text-slate-500">
-                    Page {p.pageNumber ?? '—'}
+                    Page {p.pageNumber ?? '-'}
                     {p.sourceLabel ? ` · ${p.sourceLabel}` : ''}
                   </span>
                   <span className="mt-1 line-clamp-2 block text-xs text-slate-600">
@@ -491,7 +491,7 @@ export function WorkspaceClient({
         </div>
         <div>
           <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">Page</dt>
-          <dd className="text-slate-800">{selected.pageNumber ?? '—'}</dd>
+          <dd className="text-slate-800">{selected.pageNumber ?? '-'}</dd>
         </div>
         <div>
           <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">

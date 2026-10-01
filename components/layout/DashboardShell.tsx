@@ -22,7 +22,7 @@ export function DashboardShell({ children, userEmail, isGuest }: DashboardShellP
   // must not survive a new tab or a browser restart. The sign-in page stores
   // "scholarsuite.remember" = "0" in localStorage and a "scholarsuite.ephemeral"
   // marker in sessionStorage (cleared when the tab/window closes). If this tab
-  // lacks the marker, the session was meant to be temporary — sign out.
+  // lacks the marker, the session was meant to be temporary, sign out.
   useEffect(() => {
     const remember = window.localStorage.getItem("scholarsuite.remember");
     const ephemeral = window.sessionStorage.getItem("scholarsuite.ephemeral");
@@ -62,7 +62,7 @@ export function DashboardShell({ children, userEmail, isGuest }: DashboardShellP
         {isGuest ? (
           <div className="border-b border-amber-200 bg-amber-50 px-4 py-2.5 sm:px-6">
             <p className="text-sm text-amber-900">
-              <span className="font-medium">You&apos;re browsing as a guest — work is temporary</span>{" "}
+              <span className="font-medium">You&apos;re browsing as a guest. Work is temporary</span>{" "}
               and may be removed automatically.{" "}
               <Link
                 href="/settings"

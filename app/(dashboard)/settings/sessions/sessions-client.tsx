@@ -127,7 +127,7 @@ export function SessionsClient() {
               {describeDevice(typeof window !== "undefined" ? window.navigator.userAgent : undefined)}
             </p>
             <p className="mt-1 text-xs text-slate-500">
-              Last sign-in: {lastSignIn ? formatDate(lastSignIn) : "—"}
+              Last sign-in: {lastSignIn ? formatDate(lastSignIn) : "-"}
             </p>
           </div>
           <Button variant="secondary" loading={signingOut} onClick={signOutThisDevice}>

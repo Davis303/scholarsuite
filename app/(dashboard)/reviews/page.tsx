@@ -17,7 +17,7 @@ export const metadata = {
 const EMPTY_UUID = '00000000-0000-0000-0000-000000000000';
 
 /**
- * My Reviews — search, status/date/match-count filters, and per-review
+ * My Reviews, search, status/date/match-count filters, and per-review
  * actions (open, download highlighted copy, delete with confirmation).
  */
 export default async function ReviewsPage() {

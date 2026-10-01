@@ -4,7 +4,7 @@ import { auditLog, requireUser } from "@/lib/writing/supabase";
 export const runtime = "nodejs";
 
 /**
- * POST /api/writing/[id]/send-to-review — bridge to the similarity review
+ * POST /api/writing/[id]/send-to-review, bridge to the similarity review
  * workspace: ensure a `documents` row (kind='original') exists for this
  * writing file, reusing the same storage path (no re-upload), then return
  * { documentId } so the UI can route to /reviews/new?documentId=.

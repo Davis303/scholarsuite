@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 const bodySchema = z.object({ documentId: z.string().uuid() });
 
 /**
- * POST /api/writing/from-document — bridge from the shared document library
+ * POST /api/writing/from-document, bridge from the shared document library
  * (and from similarity reviews): create a writing_docs row reusing the SAME
  * storage path as a documents row. No file re-upload.
  * Body: { documentId } (documents table id) → { writingDocId }.

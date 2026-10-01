@@ -220,7 +220,7 @@ export function NewReviewWizard({ initialDocumentId }: { initialDocumentId: stri
         <Card className="p-6">
           <h2 className="text-lg font-semibold text-slate-900">Upload the original document</h2>
           <p className="mt-1 text-sm text-slate-600">
-            The academic document you want to review — a Word (.docx) or PDF file.
+            The academic document you want to review: a Word (.docx) or PDF file.
           </p>
           <div className="mt-4">
             {documentId ? (
@@ -261,7 +261,7 @@ export function NewReviewWizard({ initialDocumentId }: { initialDocumentId: stri
           <h2 className="text-lg font-semibold text-slate-900">Upload the similarity report</h2>
           <p className="mt-1 text-sm text-slate-600">
             The similarity report PDF (for example, from your institution&apos;s similarity checker).
-            Matched passages are extracted from it automatically — if the format can&apos;t be
+            Matched passages are extracted from it automatically. If the format can&apos;t be
             recognized, you can add passages manually instead.
           </p>
           <div className="mt-4 space-y-4">
@@ -273,7 +273,7 @@ export function NewReviewWizard({ initialDocumentId }: { initialDocumentId: stri
             />
             <Input
               label="Review title"
-              placeholder="e.g. Thesis chapter 3 — similarity review"
+              placeholder="e.g. Thesis chapter 3, similarity review"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               error={titleError}
@@ -298,8 +298,7 @@ export function NewReviewWizard({ initialDocumentId }: { initialDocumentId: stri
         <Card className="p-6">
           <h2 className="text-lg font-semibold text-slate-900">Processing your review</h2>
           <p className="mt-1 text-sm text-slate-600">
-            This usually takes under a minute. Each stage below reflects real progress —
-            nothing is simulated.
+            This usually takes under a minute. Each stage below reflects real progress. Nothing is simulated.
           </p>
           {processError ? (
             <div className="mt-6">

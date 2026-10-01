@@ -20,7 +20,7 @@ function sseEvent(payload: unknown): string {
 }
 
 /**
- * POST /api/writing/documents/[id]/analyze — extract text + structure,
+ * POST /api/writing/documents/[id]/analyze, extract text + structure,
  * compute the local style profile, store both, mark the doc 'review_ready'.
  * Fully local: works without an LLM key.
  *

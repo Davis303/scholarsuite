@@ -10,7 +10,7 @@ function extractedPath(storagePath: string): string {
 }
 
 /**
- * GET /api/writing/[id] — full editor payload: the writing doc, extracted
+ * GET /api/writing/[id], full editor payload: the writing doc, extracted
  * sections (when analyzed), style profile display rows, paragraph list,
  * revisions, and proofread run summaries.
  */

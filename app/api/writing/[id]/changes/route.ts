@@ -6,7 +6,7 @@ import type { RevisionStatus } from "@/lib/writing/types";
 export const runtime = "nodejs";
 
 /**
- * GET /api/writing/[id]/changes — "View Changes": every revision with
+ * GET /api/writing/[id]/changes, "View Changes": every revision with
  * original → revised text and its current status.
  */
 export async function GET(

@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
       if (updateError) throw updateError;
       setDone(true);
     } catch {
-      setError("We couldn't update your password. The link may have expired — request a new one below.");
+      setError("We couldn't update your password. The link may have expired. Request a new one below.");
     } finally {
       setLoading(false);
     }
