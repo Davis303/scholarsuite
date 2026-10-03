@@ -7,6 +7,8 @@ import {
   type MatchDocPage,
 } from '@/lib/reviews/extract';
 import { parseSimilarityReport } from '@/lib/reviews/parseReport';
+import { extractHighlightPassagesFromReport } from '@/lib/reviews/highlightExtract';
+import { normalizeText } from '@/lib/reviews/textUtils';
 import { mapPassagesToDocument } from '@/lib/reviews/match';
 import { detectCitationNearby } from '@/lib/reviews/citations';
 import type { DocumentRow } from '@/lib/reviews/types';
@@ -110,7 +112,28 @@ export async function POST(
 
     // ---- Stage 3: detect matched passages ----
     await reportStage(auth, review.id, 'detecting_matches');
-    const parsed = parseSimilarityReport(reportPages);
+    let parsed = parseSimilarityReport(reportPages);
+    // Turnitin-style reports paint matches as colored highlights instead of
+    // listing passage text. Recover those spans from the PDF drawing layer
+    // and merge anything the text parser missed.
+    const highlighted = await extractHighlightPassagesFromReport(
+      reportBuffer,
+      reportPages,
+    ).catch(() => []);
+    if (highlighted.length > 0) {
+      const seenKeys = new Set(
+        parsed.passages.map((p) => normalizeText(p.text).slice(0, 200)),
+      );
+      const extra = highlighted.filter(
+        (p) => !seenKeys.has(normalizeText(p.text).slice(0, 200)),
+      );
+      if (extra.length > 0) {
+        parsed = {
+          passages: [...parsed.passages, ...extra],
+          needsManualReview: false,
+        };
+      }
+    }
 
     // ---- Stage 4: map passages to the document ----
     await reportStage(auth, review.id, 'mapping_matches');
