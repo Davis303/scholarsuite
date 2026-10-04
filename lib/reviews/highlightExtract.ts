@@ -144,6 +144,15 @@ async function loadPdfJs(): Promise<PdfJsLib> {
   const mod = (await import(
     /* webpackIgnore: true */ "pdfjs-dist/legacy/build/pdf.js"
   )) as unknown as PdfJsLib;
+  // pdf.js starts a "fake worker" in Node, which loads pdf.worker.js from
+  // disk next to pdf.js. In a pruned serverless bundle that sibling file
+  // only exists when the module graph references it, so import it here:
+  // the explicit import makes the file tracer include it, and loading it
+  // in-process registers the worker implementation as a fallback.
+  // @ts-ignore - pdfjs-dist ships no type declarations for the worker entry.
+  await import("pdfjs-dist/legacy/build/pdf.worker.js").catch(
+    () => undefined,
+  );
   return mod;
 }
 

@@ -30,7 +30,9 @@ interface Candidate {
 
 function nearestPercent(lines: string[], idx: number): number | undefined {
   for (let d = 0; d <= 3; d++) {
-    for (const j of [idx + d, idx - d]) {
+    // Prefer the line above on ties: reports conventionally print the
+    // match heading (source / percentage) before the passage text.
+    for (const j of [idx - d, idx + d]) {
       if (j < 0 || j >= lines.length) continue;
       const m = PCT_RE.exec(lines[j]);
       if (m) {
@@ -44,7 +46,8 @@ function nearestPercent(lines: string[], idx: number): number | undefined {
 
 function nearestSource(lines: string[], idx: number): { label?: string; detail?: string } {
   for (let d = 1; d <= 4; d++) {
-    for (const j of [idx + d, idx - d]) {
+    // Prefer the line above on ties, see nearestPercent.
+    for (const j of [idx - d, idx + d]) {
       if (j < 0 || j >= lines.length) continue;
       const line = lines[j];
       const sm = SOURCE_LINE_RE.exec(line);

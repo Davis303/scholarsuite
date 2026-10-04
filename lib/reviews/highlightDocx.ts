@@ -1,3 +1,7 @@
+import JSZip from 'jszip';
+import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
+
+type XmlDocument = ReturnType<InstanceType<typeof DOMParser>['parseFromString']>;
 import {
   AlignmentType,
   Document,
@@ -203,19 +207,238 @@ function assembleDocument(paragraphs: Paragraph[]): Document {
   });
 }
 
+// ---------------------------------------------------------------------------
+// In-place DOCX highlighting
+//
+// The review copy should keep the original document's formatting as closely
+// as possible, so instead of rebuilding the file from extracted text we
+// edit word/document.xml inside the original package: matched runs are
+// split at the span boundaries and get a real Word highlight. Everything
+// else (styles, tables, images, numbering, headers) is preserved as-is.
+// The rebuild path below remains as a fallback for files whose XML cannot
+// be processed this way.
+// ---------------------------------------------------------------------------
+
+function descendantElements(root: Element, tag: string): Element[] {
+  const list = root.getElementsByTagName(tag);
+  const out: Element[] = [];
+  for (let i = 0; i < list.length; i++) out.push(list.item(i) as Element);
+  return out;
+}
+
+function childElements(el: Element, tag: string): Element[] {
+  const out: Element[] = [];
+  for (let i = 0; i < el.childNodes.length; i++) {
+    const n = el.childNodes.item(i) as unknown as Element | null;
+    if (n && n.nodeType === 1 && n.tagName === tag) out.push(n);
+  }
+  return out;
+}
+
+interface DocxRunInfo {
+  run: Element;
+  textEl: Element | null;
+  text: string;
+  start: number;
+  end: number;
+  /** Runs containing breaks, drawings etc. are never split internally. */
+  opaque: boolean;
+}
+
+function collectRuns(p: Element): DocxRunInfo[] {
+  const infos: DocxRunInfo[] = [];
+  let pos = 0;
+  for (const run of descendantElements(p, 'w:r')) {
+    let simple = true;
+    for (let i = 0; i < run.childNodes.length; i++) {
+      const n = run.childNodes.item(i) as unknown as Element | null;
+      if (n && n.nodeType === 1 && n.tagName !== 'w:rPr' && n.tagName !== 'w:t') {
+        simple = false;
+        break;
+      }
+    }
+    if (simple) {
+      // Merge split w:t nodes so boundary math has one text node per run.
+      const ts = descendantElements(run, 'w:t');
+      if (ts.length > 1) {
+        ts[0].textContent = ts.map((t) => t.textContent ?? '').join('');
+        for (const t of ts.slice(1)) t.parentNode?.removeChild(t);
+      }
+    }
+    const ts = descendantElements(run, 'w:t');
+    const text = ts.map((t) => t.textContent ?? '').join('');
+    infos.push({
+      run,
+      textEl: ts[0] ?? null,
+      text,
+      start: pos,
+      end: pos + text.length,
+      opaque: !simple,
+    });
+    pos += text.length;
+  }
+  return infos;
+}
+
+function setTextOn(el: Element, text: string): void {
+  el.textContent = text;
+  if (/^\s|\s$/.test(text)) el.setAttribute('xml:space', 'preserve');
+}
+
+/** Ensure a run boundary exists at `offset` within the paragraph text. */
+function splitRunAt(p: Element, offset: number): void {
+  for (const info of collectRuns(p)) {
+    if (info.opaque || !info.textEl) continue;
+    if (offset > info.start && offset < info.end) {
+      const cut = offset - info.start;
+      const clone = info.run.cloneNode(true) as unknown as Element;
+      const cloneTs = descendantElements(clone, 'w:t');
+      setTextOn(info.textEl, info.text.slice(0, cut));
+      if (cloneTs[0]) setTextOn(cloneTs[0], info.text.slice(cut));
+      info.run.parentNode?.insertBefore(clone, info.run.nextSibling);
+      return;
+    }
+  }
+}
+
+function addHighlightToRun(run: Element, doc: XmlDocument): void {
+  let rPr = childElements(run, 'w:rPr')[0];
+  if (!rPr) {
+    rPr = doc.createElement('w:rPr');
+    run.insertBefore(rPr, run.firstChild);
+  }
+  for (const h of childElements(rPr, 'w:highlight')) rPr.removeChild(h);
+  const hl = doc.createElement('w:highlight');
+  hl.setAttribute('w:val', 'yellow');
+  rPr.appendChild(hl);
+}
+
+function applySpansInPlace(p: Element, spans: TextSpan[], doc: XmlDocument): void {
+  for (const span of spans) {
+    splitRunAt(p, span.end);
+    splitRunAt(p, span.start);
+    for (const info of collectRuns(p)) {
+      if (info.end > info.start && info.start >= span.start && info.end <= span.end) {
+        addHighlightToRun(info.run, doc);
+      }
+    }
+  }
+}
+
+function noticeRun(
+  doc: XmlDocument,
+  text: string,
+  opts: { bold?: boolean; italic?: boolean; color?: string; size?: number },
+): Element {
+  const run = doc.createElement('w:r');
+  const rPr = doc.createElement('w:rPr');
+  if (opts.bold) rPr.appendChild(doc.createElement('w:b'));
+  if (opts.italic) rPr.appendChild(doc.createElement('w:i'));
+  if (opts.color) {
+    const c = doc.createElement('w:color');
+    c.setAttribute('w:val', opts.color);
+    rPr.appendChild(c);
+  }
+  if (opts.size) {
+    const sz = doc.createElement('w:sz');
+    sz.setAttribute('w:val', String(opts.size));
+    rPr.appendChild(sz);
+  }
+  run.appendChild(rPr);
+  const t = doc.createElement('w:t');
+  t.textContent = text;
+  run.appendChild(t);
+  return run;
+}
+
+function prependNoticeInPlace(doc: XmlDocument, body: Element, title: string): void {
+  const date = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  const mk = (run: Element | null): Element => {
+    const p = doc.createElement('w:p');
+    if (run) p.appendChild(run);
+    return p;
+  };
+  const paras = [
+    mk(noticeRun(doc, title, { bold: true, size: 32 })),
+    mk(
+      noticeRun(
+        doc,
+        `Highlighted review copy, generated ${date}. Matched passages are highlighted in yellow. The original document is preserved unchanged.`,
+        { italic: true, color: '64748B' },
+      ),
+    ),
+    mk(null),
+  ];
+  for (let i = paras.length - 1; i >= 0; i--) {
+    body.insertBefore(paras[i], body.firstChild);
+  }
+}
+
+async function buildHighlightedDocxInPlace(
+  original: Buffer,
+  matches: HighlightMatchInput[],
+  title: string,
+): Promise<Buffer> {
+  const zip = await JSZip.loadAsync(original);
+  const file = zip.file('word/document.xml');
+  if (!file) throw new Error('The document has no main content part.');
+  const xml = await file.async('string');
+  const doc = new DOMParser().parseFromString(xml, 'text/xml');
+  const body = doc.getElementsByTagName('w:body').item(0) as unknown as Element | null;
+  if (!body) throw new Error('The document has no body.');
+
+  for (const p of descendantElements(body, 'w:p')) {
+    const ts = descendantElements(p, 'w:t');
+    if (ts.length === 0) continue;
+    const text = ts.map((t) => t.textContent ?? '').join('');
+    if (!text.trim()) continue;
+    const spans = findMatchSpans(text, matches);
+    if (spans.length > 0) applySpansInPlace(p, spans, doc);
+  }
+  prependNoticeInPlace(doc, body, title);
+
+  const decl = xml.startsWith('<?xml')
+    ? xml.slice(0, xml.indexOf('?>') + 2)
+    : '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  let out = new XMLSerializer().serializeToString(doc);
+  // The serializer may emit its own declaration; keep exactly one, the
+  // original file's, at the very start of the document.
+  if (out.startsWith('<?xml')) out = out.slice(out.indexOf('?>') + 2);
+  zip.file('word/document.xml', decl + out);
+  return zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
+}
+
 /**
  * Build a highlighted DOCX review copy from an original DOCX buffer.
- * Rebuilds paragraphs from the extracted structure (headings, bold/italic/
- * underline, bullet + numbered lists, simple tables flattened to rows) and
- * applies yellow highlighting to matched runs.
  *
- * Fidelity notes (documented for the docs builder):
- * - Images are not carried over (mammoth extraction is text/structure only).
- * - Complex tables are flattened: one paragraph per row, cells joined with " | ".
- * - Headers/footers, footnotes, text boxes and exact page layout are not preserved.
- * - Fonts/sizes fall back to the document defaults.
+ * Preferred path: edit the original file in place (see above), which
+ * preserves styles, tables, images and layout, and applies real Word
+ * highlighting to the matched runs. Falls back to a from-text rebuild
+ * when the source XML cannot be processed in place.
  */
 export async function buildHighlightedDocx(
+  original: Buffer,
+  matches: HighlightMatchInput[],
+  title: string,
+): Promise<Buffer> {
+  try {
+    return await buildHighlightedDocxInPlace(original, matches, title);
+  } catch {
+    return buildHighlightedDocxRebuild(original, matches, title);
+  }
+}
+
+/**
+ * Fallback: rebuild the review copy from extracted structure (headings,
+ * bold/italic/underline, bullet + numbered lists, simple tables flattened
+ * to rows). Images, exact styling and complex tables are not preserved
+ * on this path.
+ */
+async function buildHighlightedDocxRebuild(
   original: Buffer,
   matches: HighlightMatchInput[],
   title: string,
