@@ -11,6 +11,19 @@ create the first user account.
 
 ---
 
+## Current production (maintainer notes)
+
+- Live site: https://scholarsuite-two.vercel.app
+- Source of truth: the GitHub repository `Davis303/scholarsuite`, branch
+  `main`. Pushing to `main` is the normal way to deploy; Vercel builds the
+  pushed commit.
+- AI features are intentionally not configured. No AI provider (OpenAI,
+  Claude, Groq, GitHub Models, or any other) is connected, and no LLM API
+  key is set for production. The similarity review workflow does not use
+  any AI service.
+
+---
+
 ## Step 1 — Create your database (Supabase)
 
 1. Go to [supabase.com](https://supabase.com) and click **Start your project**
