@@ -23,6 +23,8 @@ import {
 } from './StatusBadge';
 import { ExportButtons } from './ExportButtons';
 import { AddPassageModal, type AddedPassage } from './AddPassageModal';
+import { AdvancePanel } from './AdvancePanel';
+import { suggestFix } from '@/lib/reviews/fixSuggestions';
 import { findSpan, normalizeText } from '@/lib/reviews/textUtils';
 import type { PassageStatus } from '@/lib/reviews/types';
 
@@ -243,6 +245,29 @@ export function WorkspaceClient({
       if (p.pageNumber != null) m.set(p.pageNumber, (m.get(p.pageNumber) ?? 0) + 1);
     });
     return m;
+  }, [passages]);
+
+  const fixQueue = useMemo(() => {
+    const counts = { citation: 0, quotes: 0, verify: 0, done: 0 };
+    passages.forEach((p) => {
+      if (p.status !== 'needs_review') {
+        counts.done += 1;
+        return;
+      }
+      const s = suggestFix({
+        passageText: p.passageText,
+        paragraphText: p.paragraphText,
+        sourceLabel: p.sourceLabel,
+        sourceDetail: p.sourceDetail,
+        similarityPct: p.similarityPct,
+        citationDetected: p.citationDetected,
+        verified: p.verified,
+      });
+      if (s.kind === 'add_citation') counts.citation += 1;
+      else if (s.kind === 'add_quotes') counts.quotes += 1;
+      else counts.verify += 1;
+    });
+    return counts;
   }, [passages]);
 
   const scrollToPage = (pageNumber: number) => {
@@ -564,6 +589,14 @@ export function WorkspaceClient({
           Save note
         </Button>
       </div>
+      {selected && (
+        <AdvancePanel
+          key={selected.id}
+          passage={selected}
+          saving={statusSaving}
+          onSetStatus={(s) => void handleStatusChange(s)}
+        />
+      )}
     </div>
   ) : null;
 
@@ -611,6 +644,18 @@ export function WorkspaceClient({
             <Button variant="secondary" size="sm" onClick={() => setRightOpen(true)}>
               Match details
             </Button>
+          </div>
+
+          {/* Advance fix queue summary */}
+          <div className="mb-3 flex flex-wrap items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+            <span className="font-semibold">Advance fix queue:</span>
+            <span>{fixQueue.citation} need a citation</span>
+            <span aria-hidden="true">·</span>
+            <span>{fixQueue.quotes} need quotation marks</span>
+            <span aria-hidden="true">·</span>
+            <span>{fixQueue.verify} to verify or decide</span>
+            <span aria-hidden="true">·</span>
+            <span>{fixQueue.done} of {passages.length} decided</span>
           </div>
 
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,1fr)_330px]">
