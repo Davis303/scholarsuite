@@ -15,6 +15,7 @@
  */
 
 import type { PassageStatus } from './types';
+import { detectCitationNearby } from './citations';
 
 export type FixKind =
   | 'verify_location'
@@ -32,6 +33,16 @@ export interface FixSuggestionInput {
   similarityPct: number | null;
   citationDetected: boolean;
   verified: boolean;
+  /** 0..1 mapping confidence from the matcher, when known. */
+  confidence?: number | null;
+  /** Text of the document's References section, when one was found. */
+  referencesText?: string | null;
+}
+
+export interface ReferenceCheck {
+  status: 'found' | 'missing' | 'unknown';
+  /** Human readable result, null when there is nothing to report. */
+  label: string | null;
 }
 
 export interface FixSuggestion {
@@ -44,9 +55,13 @@ export interface FixSuggestion {
   applyLabel: string | null;
   /** Passage wrapped in quotation marks, shown when quotes are the fix. */
   quotedPreview: string | null;
+  /** How trustworthy the passage mapping is, in plain words. */
+  mappingNote: string | null;
+  /** Cross check of the in-text citation against the reference list. */
+  reference: ReferenceCheck;
 }
 
-const QUOTE_CHARS = ['"', '“', '”', '‘', '’', "'"];
+const STRONG_QUOTES = ['"', '“', '”'];
 
 /** Is the matched passage already wrapped in quotation marks in its paragraph? */
 export function isQuotedInParagraph(
@@ -64,11 +79,70 @@ export function isQuotedInParagraph(
   const before = idx > 0 ? para[idx - 1] : '';
   const afterIdx = idx + pass.length;
   const after = afterIdx < para.length ? para[afterIdx] : '';
-  return QUOTE_CHARS.includes(before) && QUOTE_CHARS.includes(after);
+  if (STRONG_QUOTES.includes(before) && STRONG_QUOTES.includes(after)) return true;
+  // Curly single quotes used as a matched pair.
+  return before === '‘' && after === '’';
+}
+
+/**
+ * Cross check the citation found near a passage against the document's
+ * own reference list. Both the author surname and the year from the
+ * in-text citation must appear in the References section text.
+ */
+export function checkReference(input: {
+  paragraphText: string | null;
+  citationDetected: boolean;
+  referencesText?: string | null;
+}): ReferenceCheck {
+  if (!input.citationDetected) return { status: 'unknown', label: null };
+  const refs = (input.referencesText ?? '').trim();
+  if (!refs) {
+    return {
+      status: 'unknown',
+      label:
+        'Reference list check: no References section was found in the document text, so the entry could not be checked.',
+    };
+  }
+  const det = input.paragraphText ? detectCitationNearby(input.paragraphText) : null;
+  const matchText = det?.match ?? '';
+  const surnameMatch = matchText.match(/[A-Z][a-z]+/);
+  const yearMatch = matchText.match(/\d{4}/);
+  if (!surnameMatch || !yearMatch) {
+    return {
+      status: 'unknown',
+      label:
+        'Reference list check: the nearby citation could not be read clearly, so the entry could not be checked.',
+    };
+  }
+  const surname = surnameMatch[0];
+  const year = yearMatch[0];
+  const refsNorm = refs.toLowerCase();
+  const found =
+    refsNorm.includes(surname.toLowerCase()) && refsNorm.includes(year);
+  return found
+    ? {
+        status: 'found',
+        label: `Reference list check: an entry matching ${surname} (${year}) was found in the References section.`,
+      }
+    : {
+        status: 'missing',
+        label: `Reference list check: no entry matching ${surname} (${year}) was found in the References section. Add it with the citation builder below.`,
+      };
+}
+
+function mappingNoteFor(input: FixSuggestionInput): string | null {
+  const c = input.confidence;
+  if (c === null || c === undefined) return null;
+  if (c >= 0.95) return 'Mapping: exact match found in the document.';
+  if (c >= 0.55)
+    return 'Mapping: close fuzzy match. Read it against the source before you decide.';
+  return null;
 }
 
 export function suggestFix(input: FixSuggestionInput): FixSuggestion {
   const { passageText, paragraphText, similarityPct, citationDetected } = input;
+  const mappingNote = mappingNoteFor(input);
+  const reference = checkReference(input);
 
   if (!paragraphText || !input.verified) {
     return {
@@ -84,6 +158,8 @@ export function suggestFix(input: FixSuggestionInput): FixSuggestion {
       applyStatus: 'source_verification',
       applyLabel: 'Mark as source verification',
       quotedPreview: null,
+      mappingNote,
+      reference,
     };
   }
 
@@ -104,6 +180,8 @@ export function suggestFix(input: FixSuggestionInput): FixSuggestion {
       applyStatus: 'common_knowledge',
       applyLabel: 'Mark as common knowledge',
       quotedPreview: null,
+      mappingNote,
+      reference,
     };
   }
 
@@ -122,6 +200,8 @@ export function suggestFix(input: FixSuggestionInput): FixSuggestion {
       applyStatus: 'direct_quote',
       applyLabel: 'Mark as direct quote',
       quotedPreview: null,
+      mappingNote,
+      reference,
     };
   }
 
@@ -142,6 +222,8 @@ export function suggestFix(input: FixSuggestionInput): FixSuggestion {
         applyStatus: 'direct_quote',
         applyLabel: 'Done, mark as direct quote',
         quotedPreview: `“${passageText.trim()}”`,
+        mappingNote,
+        reference,
       };
     }
     return {
@@ -156,6 +238,8 @@ export function suggestFix(input: FixSuggestionInput): FixSuggestion {
       applyStatus: 'properly_cited',
       applyLabel: 'Mark as properly cited',
       quotedPreview: null,
+      mappingNote,
+      reference,
     };
   }
 
@@ -172,6 +256,8 @@ export function suggestFix(input: FixSuggestionInput): FixSuggestion {
     applyStatus: 'citation_check',
     applyLabel: 'Mark as citation check',
     quotedPreview: null,
+    mappingNote,
+    reference,
   };
 }
 

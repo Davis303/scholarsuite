@@ -54,6 +54,7 @@ export interface WorkspacePassage {
   status: PassageStatus;
   reviewerNote: string | null;
   verified: boolean;
+  confidence: number | null;
 }
 
 export interface WorkspaceReview {
@@ -146,6 +147,32 @@ export function WorkspaceClient({
   const blockNorms = useMemo(
     () => pages.map((p) => p.blocks.map((b) => normalizeText(b.text))),
     [pages],
+  );
+
+  // The document's own References section text, for citation cross checks.
+  const referencesText = useMemo(() => {
+    const blocks: string[] = [];
+    for (const p of pages) for (const b of p.blocks) blocks.push(b.text);
+    const start = blocks.findIndex((t) => /^references\s*$/i.test(t.trim()));
+    if (start < 0) return null;
+    const text = blocks.slice(start + 1).join('\n').trim();
+    return text.length > 0 ? text : null;
+  }, [pages]);
+
+  const suggestionFor = useCallback(
+    (p: WorkspacePassage) =>
+      suggestFix({
+        passageText: p.passageText,
+        paragraphText: p.paragraphText,
+        sourceLabel: p.sourceLabel,
+        sourceDetail: p.sourceDetail,
+        similarityPct: p.similarityPct,
+        citationDetected: p.citationDetected,
+        verified: p.verified,
+        confidence: p.confidence,
+        referencesText,
+      }),
+    [referencesText],
   );
 
   // Map each document block to the highlight spans it contains.
@@ -248,27 +275,56 @@ export function WorkspaceClient({
   }, [passages]);
 
   const fixQueue = useMemo(() => {
-    const counts = { citation: 0, quotes: 0, verify: 0, done: 0 };
+    const counts = { citation: 0, quotes: 0, verify: 0, done: 0, refMissing: 0, clear: 0 };
     passages.forEach((p) => {
+      const s = suggestionFor(p);
+      if (s.reference.status === 'missing') counts.refMissing += 1;
       if (p.status !== 'needs_review') {
         counts.done += 1;
         return;
       }
-      const s = suggestFix({
-        passageText: p.passageText,
-        paragraphText: p.paragraphText,
-        sourceLabel: p.sourceLabel,
-        sourceDetail: p.sourceDetail,
-        similarityPct: p.similarityPct,
-        citationDetected: p.citationDetected,
-        verified: p.verified,
-      });
+      if (s.kind === 'properly_handled' || s.kind === 'cited_ok') counts.clear += 1;
       if (s.kind === 'add_citation') counts.citation += 1;
       else if (s.kind === 'add_quotes') counts.quotes += 1;
       else counts.verify += 1;
     });
     return counts;
-  }, [passages]);
+  }, [passages, suggestionFor]);
+
+  const [applyingClear, setApplyingClear] = useState(false);
+  const applyClearSuggestions = async () => {
+    const clearOnes = passages
+      .map((p) => ({ p, s: suggestionFor(p) }))
+      .filter(
+        ({ p, s }) =>
+          p.status === 'needs_review' &&
+          (s.kind === 'properly_handled' || s.kind === 'cited_ok') &&
+          s.applyStatus !== null,
+      );
+    if (clearOnes.length === 0) return;
+    const ok = window.confirm(
+      `Apply the clear suggestions for ${clearOnes.length} match(es)? These are matches that are already quoted and cited, or cited nearby. Each one will be marked as decided, and you can change any of them back.`,
+    );
+    if (!ok) return;
+    setApplyingClear(true);
+    try {
+      for (const { p, s } of clearOnes) {
+        await patchPassage(p.id, s.applyStatus!, p.reviewerNote);
+      }
+      const applied = new Map(clearOnes.map(({ p, s }) => [p.id, s.applyStatus!]));
+      setPassages((prev) =>
+        prev.map((p) => (applied.has(p.id) ? { ...p, status: applied.get(p.id)! } : p)),
+      );
+      toast(`Applied suggestions for ${clearOnes.length} match(es).`, 'success');
+    } catch (err) {
+      toast(
+        err instanceof Error ? err.message : 'Some suggestions could not be applied.',
+        'error',
+      );
+    } finally {
+      setApplyingClear(false);
+    }
+  };
 
   const scrollToPage = (pageNumber: number) => {
     const el = document.getElementById(`review-page-${pageNumber}`);
@@ -356,6 +412,7 @@ export function WorkspaceClient({
       status: 'needs_review',
       reviewerNote: null,
       verified: added.verified,
+      confidence: null,
     };
     setPassages((prev) => [...prev, next]);
     setSelectedIdx(newIdx);
@@ -593,6 +650,7 @@ export function WorkspaceClient({
         <AdvancePanel
           key={selected.id}
           passage={selected}
+          referencesText={referencesText}
           saving={statusSaving}
           onSetStatus={(s) => void handleStatusChange(s)}
         />
@@ -656,6 +714,23 @@ export function WorkspaceClient({
             <span>{fixQueue.verify} to verify or decide</span>
             <span aria-hidden="true">·</span>
             <span>{fixQueue.done} of {passages.length} decided</span>
+            {fixQueue.refMissing > 0 && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>{fixQueue.refMissing} cited in text but missing from the reference list</span>
+              </>
+            )}
+            {fixQueue.clear > 0 && (
+              <Button
+                variant="secondary"
+                size="sm"
+                className="ml-auto"
+                loading={applyingClear}
+                onClick={() => void applyClearSuggestions()}
+              >
+                Apply clear suggestions ({fixQueue.clear})
+              </Button>
+            )}
           </div>
 
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,1fr)_330px]">

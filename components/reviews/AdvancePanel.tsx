@@ -17,6 +17,7 @@ import type { WorkspacePassage } from './WorkspaceClient';
 
 interface Props {
   passage: WorkspacePassage;
+  referencesText: string | null;
   saving: boolean;
   onSetStatus: (status: PassageStatus) => void;
 }
@@ -37,7 +38,7 @@ function save(key: string, value: string) {
   }
 }
 
-export function AdvancePanel({ passage, saving, onSetStatus }: Props) {
+export function AdvancePanel({ passage, referencesText, saving, onSetStatus }: Props) {
   const suggestion = useMemo(
     () =>
       suggestFix({
@@ -48,8 +49,10 @@ export function AdvancePanel({ passage, saving, onSetStatus }: Props) {
         similarityPct: passage.similarityPct,
         citationDetected: passage.citationDetected,
         verified: passage.verified,
+        confidence: passage.confidence,
+        referencesText,
       }),
-    [passage],
+    [passage, referencesText],
   );
 
   const [style, setStyle] = useState<CitationStyleId>('apa');
@@ -133,7 +136,24 @@ export function AdvancePanel({ passage, saving, onSetStatus }: Props) {
             {suggestion.applyLabel}
           </Button>
         )}
+        {suggestion.mappingNote && (
+          <p className="mt-2 text-xs text-amber-800">{suggestion.mappingNote}</p>
+        )}
       </div>
+
+      {suggestion.reference.label && (
+        <div
+          className={
+            suggestion.reference.status === 'found'
+              ? 'rounded-lg border border-green-200 bg-green-50 p-3 text-xs leading-5 text-green-800'
+              : suggestion.reference.status === 'missing'
+                ? 'rounded-lg border border-red-200 bg-red-50 p-3 text-xs leading-5 text-red-800'
+                : 'rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs leading-5 text-slate-600'
+          }
+        >
+          {suggestion.reference.label}
+        </div>
+      )}
 
       <div>
         <Select

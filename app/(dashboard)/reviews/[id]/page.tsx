@@ -200,6 +200,7 @@ export default async function ReviewWorkspacePage({
     status: p.status,
     reviewerNote: p.reviewer_note,
     verified: mapped[i]?.verified ?? false,
+    confidence: mapped[i]?.confidence ?? null,
   }));
 
   return (
