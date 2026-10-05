@@ -77,6 +77,28 @@ export function ProofreadPanel({
   const { toast } = useToast();
   const [scope, setScope] = useState<Scope>("section");
   const [selectionText, setSelectionText] = useState("");
+
+  // Text selected in the document pane can be sent straight here.
+  useEffect(() => {
+    const apply = (t: string) => {
+      if (t && t.trim().length >= 3) {
+        setSelectionText(t);
+        setScope("selection");
+      }
+    };
+    try {
+      const stored = window.sessionStorage.getItem(`scholardesk:selection:${docId}`);
+      if (stored) apply(stored);
+    } catch {
+      /* session storage unavailable */
+    }
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ text?: string; docId?: string }>).detail;
+      if (detail?.docId === docId && detail.text) apply(detail.text);
+    };
+    window.addEventListener("scholardesk:use-selection", handler);
+    return () => window.removeEventListener("scholardesk:use-selection", handler);
+  }, [docId]);
   const [paraRef, setParaRef] = useState("");
   const [sectionIdx, setSectionIdx] = useState("0");
   const [running, setRunning] = useState(false);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChangesModal } from "@/components/writing/changes-modal";
 import type { DetailPayload } from "@/components/writing/editor-types";
 import { ImprovePanel } from "@/components/writing/improve-panel";
@@ -10,6 +10,8 @@ import { ProgressSteps } from "@/components/writing/progress-steps";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { ToastProvider, useToast } from "@/components/ui/Toast";
 
@@ -80,6 +82,12 @@ function EditorInner({ docId }: { docId: string }) {
   const [exporting, setExporting] = useState<"docx" | "pdf" | null>(null);
   const [exportOpen, setExportOpen] = useState(false);
   const [sending, setSending] = useState(false);
+  const articleRef = useRef<HTMLElement | null>(null);
+  const [docSelection, setDocSelection] = useState("");
+  const [editDraft, setEditDraft] = useState<
+    { heading: string; text: string }[] | null
+  >(null);
+  const [savingEdit, setSavingEdit] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -197,6 +205,76 @@ function EditorInner({ docId }: { docId: string }) {
       setSending(false);
     }
   }, [docId, toast]);
+
+  const captureSelection = useCallback(() => {
+    const sel = window.getSelection();
+    const node = sel?.anchorNode ?? null;
+    if (sel && node && articleRef.current?.contains(node)) {
+      const t = sel.toString();
+      if (t.trim().length >= 3) setDocSelection(t);
+    }
+  }, []);
+
+  const useDocSelection = (target: AssistantTab) => {
+    try {
+      window.sessionStorage.setItem(`scholardesk:selection:${docId}`, docSelection);
+    } catch {
+      /* session storage unavailable */
+    }
+    setTab(target);
+    window.dispatchEvent(
+      new CustomEvent("scholardesk:use-selection", {
+        detail: { text: docSelection, docId },
+      })
+    );
+  };
+
+  const startEditing = () => {
+    if (!detail) return;
+    setEditDraft(
+      detail.sections.map((s) => ({
+        heading: s.heading,
+        text: s.paragraphs.join("\n\n"),
+      }))
+    );
+  };
+
+  const saveEdits = async () => {
+    if (!detail || !editDraft) return;
+    setSavingEdit(true);
+    try {
+      const sections = editDraft.map((d, i) => ({
+        heading: d.heading.trim(),
+        paragraphs: d.text
+          .split(/\n\s*\n/)
+          .map((t) => t.trim())
+          .filter((t) => t.length > 0),
+        pageNumber: detail.sections[i]?.pageNumber ?? 1,
+      }));
+      const res = await fetch(`/api/writing/${docId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sections }),
+      });
+      const data = (await res.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+      if (!res.ok) throw new Error(data?.error ?? "The edits could not be saved.");
+      setEditDraft(null);
+      toast(
+        "Your edits are saved. The originally uploaded file was not changed.",
+        "success"
+      );
+      await load();
+    } catch (e) {
+      toast(
+        e instanceof Error ? e.message : "The edits could not be saved.",
+        "error"
+      );
+    } finally {
+      setSavingEdit(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -340,6 +418,17 @@ function EditorInner({ docId }: { docId: string }) {
           <ToolbarIcon path="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
           {sending ? "Preparing…" : "Send to similarity review"}
         </button>
+        <span className="ss-toolbar-divider" aria-hidden="true" />
+        <button
+          type="button"
+          className="ss-toolbar-btn"
+          disabled={needsAnalysis || editDraft !== null}
+          title={needsAnalysis ? "Analyze the document first" : "Edit the document text"}
+          onClick={startEditing}
+        >
+          <ToolbarIcon path="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213 3 21l1.787-4.5L16.862 3.487z" />
+          Edit document
+        </button>
       </div>
 
       {needsAnalysis ? (
@@ -364,10 +453,100 @@ function EditorInner({ docId }: { docId: string }) {
           )}
         </article>
       ) : (
+        <>
+          {editDraft ? (
+            <div className="mb-3 flex flex-wrap items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-slate-700">
+              <span className="font-medium">Editing the document text.</span>
+              <span className="text-xs text-slate-500">
+                Paragraphs are separated by a blank line. Your edits save to the
+                workspace copy, the originally uploaded file stays unchanged.
+              </span>
+              <span className="ml-auto flex gap-2">
+                <Button size="sm" loading={savingEdit} onClick={saveEdits}>
+                  Save edits
+                </Button>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  disabled={savingEdit}
+                  onClick={() => setEditDraft(null)}
+                >
+                  Cancel
+                </Button>
+              </span>
+            </div>
+          ) : docSelection ? (
+            <div className="mb-3 flex flex-wrap items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-card">
+              <span>
+                <strong>{docSelection.trim().length}</strong> characters selected
+                in the document
+              </span>
+              <span className="ml-auto flex gap-2">
+                <Button size="sm" onClick={() => useDocSelection("improve")}>
+                  Use in Improve
+                </Button>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => useDocSelection("proofread")}
+                >
+                  Use in Proofread
+                </Button>
+                <Button
+                  size="sm"
+                  variant="tertiary"
+                  onClick={() => setDocSelection("")}
+                >
+                  Clear
+                </Button>
+              </span>
+            </div>
+          ) : null}
         <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_370px]">
           {/* Center: document page */}
-          <article aria-label="Document" className="ss-doc-page min-w-0 p-8 sm:p-12">
-            {detail.sections.length === 0 ? (
+          <article
+            aria-label="Document"
+            ref={articleRef}
+            onMouseUp={captureSelection}
+            onKeyUp={captureSelection}
+            className="ss-doc-page min-w-0 cursor-text select-text p-8 sm:p-12"
+          >
+            {editDraft ? (
+              <div className="space-y-6">
+                {editDraft.map((d, i) => (
+                  <div key={i}>
+                    <Input
+                      label={`Section ${i + 1} heading`}
+                      value={d.heading}
+                      onChange={(e) =>
+                        setEditDraft((prev) =>
+                          (prev ?? []).map((x, j) =>
+                            j === i ? { ...x, heading: e.target.value } : x
+                          )
+                        )
+                      }
+                    />
+                    <div className="mt-2">
+                      <Textarea
+                        label="Text"
+                        rows={Math.min(
+                          24,
+                          Math.max(6, Math.ceil(d.text.length / 90))
+                        )}
+                        value={d.text}
+                        onChange={(e) =>
+                          setEditDraft((prev) =>
+                            (prev ?? []).map((x, j) =>
+                              j === i ? { ...x, text: e.target.value } : x
+                            )
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : detail.sections.length === 0 ? (
               <p className="text-sm text-slate-500">
                 No readable text was extracted from this document.
               </p>
@@ -449,6 +628,7 @@ function EditorInner({ docId }: { docId: string }) {
             </div>
           </aside>
         </div>
+        </>
       )}
 
       <ChangesModal
